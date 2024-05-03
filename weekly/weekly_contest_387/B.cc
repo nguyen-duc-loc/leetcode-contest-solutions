@@ -35,92 +35,93 @@ using namespace std;
 
 template <class T = int>
 struct psa2d {  // 0-indexed
-  vector<vector<T>> prefix;
+    vector<vector<T>> prefix;
 
-  psa2d() {}
+    psa2d() {}
 
-  psa2d(vector<vector<int>> v) {
-    prefix = vector<vector<T>>(v.size() + 1, vector<T>(v[0].size() + 1));
-    for (int i = 0; i < (int)v.size(); i++) {
-      for (int j = 0; j < (int)v[0].size(); j++)
-        prefix[i + 1][j + 1] =
-            prefix[i + 1][j] + prefix[i][j + 1] - prefix[i][j] + v[i][j];
+    psa2d(vector<vector<int>> v) {
+        prefix = vector<vector<T>>(v.size() + 1, vector<T>(v[0].size() + 1));
+        for (int i = 0; i < (int)v.size(); i++) {
+            for (int j = 0; j < (int)v[0].size(); j++)
+                prefix[i + 1][j + 1] = prefix[i + 1][j] + prefix[i][j + 1] -
+                                       prefix[i][j] + v[i][j];
+        }
     }
-  }
 
-  psa2d(vector<vector<long long>> v) {
-    prefix = vector<vector<T>>(v.size() + 1, vector<T>(v[0].size() + 1));
-    for (int i = 0; i < (int)v.size(); i++) {
-      for (int j = 0; j < (int)v[0].size(); j++)
-        prefix[i + 1][j + 1] =
-            prefix[i + 1][j] + prefix[i][j + 1] - prefix[i][j] + v[i][j];
+    psa2d(vector<vector<long long>> v) {
+        prefix = vector<vector<T>>(v.size() + 1, vector<T>(v[0].size() + 1));
+        for (int i = 0; i < (int)v.size(); i++) {
+            for (int j = 0; j < (int)v[0].size(); j++)
+                prefix[i + 1][j + 1] = prefix[i + 1][j] + prefix[i][j + 1] -
+                                       prefix[i][j] + v[i][j];
+        }
     }
-  }
 
-  T query(int l1, int r1, int l2, int r2) {
-    return prefix[r1 + 1][r2 + 1] - prefix[l1][r2 + 1] - prefix[r1 + 1][l2] +
-           prefix[l1][l2];
-  }
+    T query(int l1, int r1, int l2, int r2) {
+        return prefix[r1 + 1][r2 + 1] - prefix[l1][r2 + 1] -
+               prefix[r1 + 1][l2] + prefix[l1][l2];
+    }
 };
 
 class Solution {
- public:
-  int countSubmatrices(vector<vector<int>>& grid, int k) {
-    int m = (int)grid.size(), n = (int)grid[0].size();
-    psa2d<int> ps(grid);
-    int ans = 0;
-    for (int i = 0; i < m; i++) {
-      for (int j = 0; j < n; j++) {
-        ans += (ps.query(0, i, 0, j) <= k);
-      }
+   public:
+    int countSubmatrices(vector<vector<int>>& grid, int k) {
+        int m = (int)grid.size(), n = (int)grid[0].size();
+        psa2d<int> ps(grid);
+        int ans = 0;
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                ans += (ps.query(0, i, 0, j) <= k);
+            }
+        }
+        return ans;
     }
-    return ans;
-  }
 };
 
 // int Solution::countSubmatrices(vector<vector<int>> grid, int k)
 
 int main() {
-  cout << "*** 3070. Count Submatrices with Top-Left Element and Sum Less Than "
-          "k ***"
-       << endl
-       << endl;
+    cout << "*** 3070. Count Submatrices with Top-Left Element and Sum Less "
+            "Than "
+            "k ***"
+         << endl
+         << endl;
 
-  Solution s0;
+    Solution s0;
 
-  {
-    cout << "Test 1: ";
+    {
+        cout << "Test 1: ";
 
-    vector<vector<int>> grid = {{7, 6, 3}, {6, 6, 1}};
-    int k = 18;
-    int ans0 = s0.countSubmatrices(grid, k);
-    int exp0 = 4;
+        vector<vector<int>> grid = {{7, 6, 3}, {6, 6, 1}};
+        int k = 18;
+        int ans0 = s0.countSubmatrices(grid, k);
+        int exp0 = 4;
 
-    if (ans0 == exp0) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << ans0 << endl;
-      cout << "  Expect: " << exp0 << endl;
+        if (ans0 == exp0) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << ans0 << endl;
+            cout << "  Expect: " << exp0 << endl;
+        }
     }
-  }
 
-  {
-    cout << "Test 2: ";
+    {
+        cout << "Test 2: ";
 
-    vector<vector<int>> grid = {{7, 2, 9}, {1, 5, 0}, {2, 6, 6}};
-    int k = 20;
-    int ans1 = s0.countSubmatrices(grid, k);
-    int exp1 = 6;
+        vector<vector<int>> grid = {{7, 2, 9}, {1, 5, 0}, {2, 6, 6}};
+        int k = 20;
+        int ans1 = s0.countSubmatrices(grid, k);
+        int exp1 = 6;
 
-    if (ans1 == exp1) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << ans1 << endl;
-      cout << "  Expect: " << exp1 << endl;
+        if (ans1 == exp1) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << ans1 << endl;
+            cout << "  Expect: " << exp1 << endl;
+        }
     }
-  }
 
-  return 0;
+    return 0;
 }

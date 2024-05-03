@@ -34,80 +34,80 @@
 using namespace std;
 
 class Solution {
- public:
-  bool check(string a, string b) {
-    int n = (int)a.size();
-    return a == b.substr(0, n) && a == b.substr(b.size() - n, n);
-  }
-
-  int countPrefixSuffixPairs(vector<string>& words) {
-    int n = (int)words.size();
-    int ans = 0;
-    for (int i = 0; i < n; i++) {
-      for (int j = i + 1; j < n; j++) {
-        if (check(words[i], words[j])) {
-          ans++;
-        }
-      }
+   public:
+    bool check(string a, string b) {
+        int n = (int)a.size();
+        return a == b.substr(0, n) && a == b.substr(b.size() - n, n);
     }
-    return ans;
-  }
+
+    int countPrefixSuffixPairs(vector<string>& words) {
+        int n = (int)words.size();
+        int ans = 0;
+        for (int i = 0; i < n; i++) {
+            for (int j = i + 1; j < n; j++) {
+                if (check(words[i], words[j])) {
+                    ans++;
+                }
+            }
+        }
+        return ans;
+    }
 };
 
 // int Solution::countPrefixSuffixPairs(vector<string> words)
 
 int main() {
-  cout << "*** 3042. Count Prefix and Suffix Pairs I ***" << endl << endl;
+    cout << "*** 3042. Count Prefix and Suffix Pairs I ***" << endl << endl;
 
-  Solution s0;
+    Solution s0;
 
-  {
-    cout << "Test 1: ";
+    {
+        cout << "Test 1: ";
 
-    vector<string> words = {"a", "aba", "ababa", "aa"};
-    int ans0 = s0.countPrefixSuffixPairs(words);
-    int exp0 = 4;
+        vector<string> words = {"a", "aba", "ababa", "aa"};
+        int ans0 = s0.countPrefixSuffixPairs(words);
+        int exp0 = 4;
 
-    if (ans0 == exp0) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << ans0 << endl;
-      cout << "  Expect: " << exp0 << endl;
+        if (ans0 == exp0) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << ans0 << endl;
+            cout << "  Expect: " << exp0 << endl;
+        }
     }
-  }
 
-  {
-    cout << "Test 2: ";
+    {
+        cout << "Test 2: ";
 
-    vector<string> words = {"pa", "papa", "ma", "mama"};
-    int ans1 = s0.countPrefixSuffixPairs(words);
-    int exp1 = 2;
+        vector<string> words = {"pa", "papa", "ma", "mama"};
+        int ans1 = s0.countPrefixSuffixPairs(words);
+        int exp1 = 2;
 
-    if (ans1 == exp1) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << ans1 << endl;
-      cout << "  Expect: " << exp1 << endl;
+        if (ans1 == exp1) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << ans1 << endl;
+            cout << "  Expect: " << exp1 << endl;
+        }
     }
-  }
 
-  {
-    cout << "Test 3: ";
+    {
+        cout << "Test 3: ";
 
-    vector<string> words = {"abab", "ab"};
-    int ans2 = s0.countPrefixSuffixPairs(words);
-    int exp2 = 0;
+        vector<string> words = {"abab", "ab"};
+        int ans2 = s0.countPrefixSuffixPairs(words);
+        int exp2 = 0;
 
-    if (ans2 == exp2) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << ans2 << endl;
-      cout << "  Expect: " << exp2 << endl;
+        if (ans2 == exp2) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << ans2 << endl;
+            cout << "  Expect: " << exp2 << endl;
+        }
     }
-  }
 
-  return 0;
+    return 0;
 }

@@ -34,59 +34,59 @@
 using namespace std;
 
 class Solution {
- public:
-  int maxSelectedElements(vector<int>& nums) {
-    sort(nums.begin(), nums.end());
-    vector<int> dp(1000005);
-    for (auto& e : nums) {
-      dp[e + 1] = max(dp[e + 1], dp[e] + 1);
-      dp[e] = max(dp[e], dp[e - 1] + 1);
+   public:
+    int maxSelectedElements(vector<int>& nums) {
+        sort(nums.begin(), nums.end());
+        vector<int> dp(1000005);
+        for (auto& e : nums) {
+            dp[e + 1] = max(dp[e + 1], dp[e] + 1);
+            dp[e] = max(dp[e], dp[e - 1] + 1);
+        }
+        return *max_element(dp.begin(), dp.end());
     }
-    return *max_element(dp.begin(), dp.end());
-  }
 };
 
 // int Solution::maxSelectedElements(vector<int> nums)
 
 int main() {
-  cout << "*** 3041. Maximize Consecutive Elements in an Array After "
-          "Modification ***"
-       << endl
-       << endl;
+    cout << "*** 3041. Maximize Consecutive Elements in an Array After "
+            "Modification ***"
+         << endl
+         << endl;
 
-  Solution s0;
+    Solution s0;
 
-  {
-    cout << "Test 1: ";
+    {
+        cout << "Test 1: ";
 
-    vector<int> nums = {2, 1, 5, 1, 1};
-    int ans0 = s0.maxSelectedElements(nums);
-    int exp0 = 3;
+        vector<int> nums = {2, 1, 5, 1, 1};
+        int ans0 = s0.maxSelectedElements(nums);
+        int exp0 = 3;
 
-    if (ans0 == exp0) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << ans0 << endl;
-      cout << "  Expect: " << exp0 << endl;
+        if (ans0 == exp0) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << ans0 << endl;
+            cout << "  Expect: " << exp0 << endl;
+        }
     }
-  }
 
-  {
-    cout << "Test 2: ";
+    {
+        cout << "Test 2: ";
 
-    vector<int> nums = {1, 4, 7, 10};
-    int ans1 = s0.maxSelectedElements(nums);
-    int exp1 = 1;
+        vector<int> nums = {1, 4, 7, 10};
+        int ans1 = s0.maxSelectedElements(nums);
+        int exp1 = 1;
 
-    if (ans1 == exp1) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << ans1 << endl;
-      cout << "  Expect: " << exp1 << endl;
+        if (ans1 == exp1) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << ans1 << endl;
+            cout << "  Expect: " << exp1 << endl;
+        }
     }
-  }
 
-  return 0;
+    return 0;
 }

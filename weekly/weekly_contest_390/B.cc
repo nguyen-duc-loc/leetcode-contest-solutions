@@ -34,64 +34,64 @@
 using namespace std;
 
 class Solution {
- public:
-  int minOperations(int k) {
-    if (k == 0 || k == 1)
-      return 0;
-    int ans = INT_MAX;
-    for (int i = 2; i <= k; i++) {
-      int t = k / i;
-      if (k % i) {
-        t++;
-      }
-      t--;
-      ans = min(ans, i - 1 + t);
+   public:
+    int minOperations(int k) {
+        if (k == 0 || k == 1)
+            return 0;
+        int ans = INT_MAX;
+        for (int i = 2; i <= k; i++) {
+            int t = k / i;
+            if (k % i) {
+                t++;
+            }
+            t--;
+            ans = min(ans, i - 1 + t);
+        }
+        return ans;
     }
-    return ans;
-  }
 };
 
 // int Solution::minOperations(int k)
 
 int main() {
-  cout << "*** 3091. Apply Operations to Make Sum of Array Greater Than or "
-          "Equal to k ***"
-       << endl
-       << endl;
+    cout << "*** 3091. Apply Operations to Make Sum of Array Greater Than or "
+            "Equal to k ***"
+         << endl
+         << endl;
 
-  Solution s0;
+    Solution s0;
 
-  {
-    cout << "Test 1: ";
+    {
+        cout << "Test 1: ";
 
-    int k = 11;
-    int ans0 = s0.minOperations(k);
-    int exp0 = 5;
+        int k = 11;
+        int ans0 = s0.minOperations(k);
+        int exp0 = 5;
 
-    if (ans0 == exp0) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << ans0 << endl;
-      cout << "  Expect: " << exp0 << endl;
+        if (ans0 == exp0) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << ans0 << endl;
+            cout << "  Expect: " << exp0 << endl;
+        }
     }
-  }
 
-  {
-    cout << "Test 2: ";
+    {
+        cout << "Test 2: ";
 
-    int k = 1;
-    int ans1 = s0.minOperations(k);
-    int exp1 = 0;
+        int k = 1;
+        int ans1 = s0.minOperations(k);
+        int exp1 = 0;
 
-    if (ans1 == exp1) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << ans1 << endl;
-      cout << "  Expect: " << exp1 << endl;
+        if (ans1 == exp1) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << ans1 << endl;
+            cout << "  Expect: " << exp1 << endl;
+        }
     }
-  }
 
-  return 0;
+    return 0;
 }

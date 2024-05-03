@@ -34,89 +34,89 @@
 using namespace std;
 
 class Solution {
- public:
-  bool canSortArray(vector<int>& nums) {
-    map<int, vector<int>> mp1;
-    map<int, vector<int>> mp2;
-    for (int i = 0; i < (int)nums.size(); i++) {
-      int c = __builtin_popcount(nums[i]);
-      mp1[c].push_back(nums[i]);
-      mp2[c].push_back(i);
-    }
-    for (auto& e : mp1) {
-      int l = 0;
-      for (int i = 1; i < (int)e.second.size(); i++) {
-        if (mp2[e.first][i] != mp2[e.first][i - 1] + 1) {
-          sort(e.second.begin() + l, e.second.begin() + i);
-          l = i;
+   public:
+    bool canSortArray(vector<int>& nums) {
+        map<int, vector<int>> mp1;
+        map<int, vector<int>> mp2;
+        for (int i = 0; i < (int)nums.size(); i++) {
+            int c = __builtin_popcount(nums[i]);
+            mp1[c].push_back(nums[i]);
+            mp2[c].push_back(i);
         }
-      }
-      sort(e.second.begin() + l, e.second.end());
+        for (auto& e : mp1) {
+            int l = 0;
+            for (int i = 1; i < (int)e.second.size(); i++) {
+                if (mp2[e.first][i] != mp2[e.first][i - 1] + 1) {
+                    sort(e.second.begin() + l, e.second.begin() + i);
+                    l = i;
+                }
+            }
+            sort(e.second.begin() + l, e.second.end());
+        }
+        vector<int> v((int)nums.size());
+        for (auto& e : mp1) {
+            for (int i = 0; i < (int)e.second.size(); i++) {
+                v[mp2[e.first][i]] = e.second[i];
+            }
+        }
+        return is_sorted(v.begin(), v.end());
     }
-    vector<int> v((int)nums.size());
-    for (auto& e : mp1) {
-      for (int i = 0; i < (int)e.second.size(); i++) {
-        v[mp2[e.first][i]] = e.second[i];
-      }
-    }
-    return is_sorted(v.begin(), v.end());
-  }
 };
 
 // bool Solution::canSortArray(vector<int> nums)
 
 int main() {
-  cout << "*** 3011. Find if Array Can Be Sorted ***" << endl << endl;
+    cout << "*** 3011. Find if Array Can Be Sorted ***" << endl << endl;
 
-  Solution s0;
+    Solution s0;
 
-  {
-    cout << "Test 1: ";
+    {
+        cout << "Test 1: ";
 
-    vector<int> nums = {8, 4, 2, 30, 15};
-    bool ans0 = s0.canSortArray(nums);
-    bool exp0 = true;
+        vector<int> nums = {8, 4, 2, 30, 15};
+        bool ans0 = s0.canSortArray(nums);
+        bool exp0 = true;
 
-    if (ans0 == exp0) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << ans0 << endl;
-      cout << "  Expect: " << exp0 << endl;
+        if (ans0 == exp0) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << ans0 << endl;
+            cout << "  Expect: " << exp0 << endl;
+        }
     }
-  }
 
-  {
-    cout << "Test 2: ";
+    {
+        cout << "Test 2: ";
 
-    vector<int> nums = {1, 2, 3, 4, 5};
-    bool ans1 = s0.canSortArray(nums);
-    bool exp1 = true;
+        vector<int> nums = {1, 2, 3, 4, 5};
+        bool ans1 = s0.canSortArray(nums);
+        bool exp1 = true;
 
-    if (ans1 == exp1) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << ans1 << endl;
-      cout << "  Expect: " << exp1 << endl;
+        if (ans1 == exp1) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << ans1 << endl;
+            cout << "  Expect: " << exp1 << endl;
+        }
     }
-  }
 
-  {
-    cout << "Test 3: ";
+    {
+        cout << "Test 3: ";
 
-    vector<int> nums = {3, 16, 8, 4, 2};
-    bool ans2 = s0.canSortArray(nums);
-    bool exp2 = false;
+        vector<int> nums = {3, 16, 8, 4, 2};
+        bool ans2 = s0.canSortArray(nums);
+        bool exp2 = false;
 
-    if (ans2 == exp2) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << ans2 << endl;
-      cout << "  Expect: " << exp2 << endl;
+        if (ans2 == exp2) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << ans2 << endl;
+            cout << "  Expect: " << exp2 << endl;
+        }
     }
-  }
 
-  return 0;
+    return 0;
 }

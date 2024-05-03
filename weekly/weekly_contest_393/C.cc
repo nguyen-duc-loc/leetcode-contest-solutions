@@ -34,80 +34,81 @@
 using namespace std;
 
 class Solution {
- public:
-  long long findKthSmallest(vector<int>& coins, int k) {
-    long long low = 0, high = LLONG_MAX;
-    int n = (int)coins.size();
-    while (low <= high) {
-      long long mid = (low + high) / 2;
-      long long cnt = 0;
-      for (int mask = 1; mask < (1 << n); mask++) {
-        long long l = 1;
-        for (int j = 0; j < n; j++) {
-          if (mask & (1 << j)) {
-            l = lcm(l, 1LL * coins[j]);
-          }
+   public:
+    long long findKthSmallest(vector<int>& coins, int k) {
+        long long low = 0, high = LLONG_MAX;
+        int n = (int)coins.size();
+        while (low <= high) {
+            long long mid = (low + high) / 2;
+            long long cnt = 0;
+            for (int mask = 1; mask < (1 << n); mask++) {
+                long long l = 1;
+                for (int j = 0; j < n; j++) {
+                    if (mask & (1 << j)) {
+                        l = lcm(l, 1LL * coins[j]);
+                    }
+                }
+                int c = __builtin_popcount(mask);
+                if (c % 2) {
+                    cnt += mid / l;
+                } else {
+                    cnt -= mid / l;
+                }
+            }
+            if (cnt < 1LL * k) {
+                low = mid + 1;
+            } else {
+                high = mid - 1;
+            }
         }
-        int c = __builtin_popcount(mask);
-        if (c % 2) {
-          cnt += mid / l;
-        } else {
-          cnt -= mid / l;
-        }
-      }
-      if (cnt < 1LL * k) {
-        low = mid + 1;
-      } else {
-        high = mid - 1;
-      }
+        return low;
     }
-    return low;
-  }
 };
 
 // long long Solution::findKthSmallest(vector<int> coins, int k)
 
 int main() {
-  cout << "*** 3116. Kth Smallest Amount With Single Denomination Combination "
-          "***"
-       << endl
-       << endl;
+    cout
+        << "*** 3116. Kth Smallest Amount With Single Denomination Combination "
+           "***"
+        << endl
+        << endl;
 
-  Solution s0;
+    Solution s0;
 
-  {
-    cout << "Test 1: ";
+    {
+        cout << "Test 1: ";
 
-    vector<int> coins = {3, 6, 9};
-    int k = 3;
-    long long ans0 = s0.findKthSmallest(coins, k);
-    long long exp0 = 9;
+        vector<int> coins = {3, 6, 9};
+        int k = 3;
+        long long ans0 = s0.findKthSmallest(coins, k);
+        long long exp0 = 9;
 
-    if (ans0 == exp0) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << ans0 << endl;
-      cout << "  Expect: " << exp0 << endl;
+        if (ans0 == exp0) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << ans0 << endl;
+            cout << "  Expect: " << exp0 << endl;
+        }
     }
-  }
 
-  {
-    cout << "Test 2: ";
+    {
+        cout << "Test 2: ";
 
-    vector<int> coins = {5, 2};
-    int k = 7;
-    long long ans1 = s0.findKthSmallest(coins, k);
-    long long exp1 = 12;
+        vector<int> coins = {5, 2};
+        int k = 7;
+        long long ans1 = s0.findKthSmallest(coins, k);
+        long long exp1 = 12;
 
-    if (ans1 == exp1) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << ans1 << endl;
-      cout << "  Expect: " << exp1 << endl;
+        if (ans1 == exp1) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << ans1 << endl;
+            cout << "  Expect: " << exp1 << endl;
+        }
     }
-  }
 
-  return 0;
+    return 0;
 }

@@ -34,136 +34,136 @@
 using namespace std;
 
 class Solution {
- public:
-  int maxOperations(vector<int>& nums) {
-    int n = (int)nums.size();
-    vector<vector<int>> dp(n, vector<int>(n));
-    int ans = 0;
-    for (int i = 0; i < n; i++) {
-      for (int j = 0; j < n; j++) {
-        dp[i][j] = -1;
-      }
-    }
-    dp[0][n - 1] = 0;
-    int x = nums[0] + nums[1];
-    for (int i = 0; i < n; i++) {
-      for (int j = n - 1; j > i; j--) {
-        if (dp[i][j] != -1) {
-          if (i < n - 2 && nums[i] + nums[i + 1] == x) {
-            dp[i + 2][j] = max(dp[i + 2][j], dp[i][j] + 1);
-          }
-          if (j >= 2 && nums[j] + nums[j - 1] == x) {
-            dp[i][j - 2] = max(dp[i][j - 2], dp[i][j] + 1);
-          }
-          if (i < n - 1 && j >= 1 && nums[i] + nums[j] == x) {
-            dp[i + 1][j - 1] = max(dp[i + 1][j - 1], dp[i][j] + 1);
-          }
+   public:
+    int maxOperations(vector<int>& nums) {
+        int n = (int)nums.size();
+        vector<vector<int>> dp(n, vector<int>(n));
+        int ans = 0;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                dp[i][j] = -1;
+            }
         }
-      }
-    }
-    for (int i = 0; i < n; i++) {
-      for (int j = 0; j < n; j++) {
-        ans = max(ans, dp[i][j]);
-      }
-    }
-    for (int i = 0; i < n; i++) {
-      for (int j = 0; j < n; j++) {
-        dp[i][j] = -1;
-      }
-    }
-    dp[0][n - 1] = 0;
-    x = nums[n - 2] + nums[n - 1];
-    for (int i = 0; i < n; i++) {
-      for (int j = n - 1; j > i; j--) {
-        if (dp[i][j] != -1) {
-          if (i < n - 2 && nums[i] + nums[i + 1] == x) {
-            dp[i + 2][j] = max(dp[i + 2][j], dp[i][j] + 1);
-          }
-          if (j >= 2 && nums[j] + nums[j - 1] == x) {
-            dp[i][j - 2] = max(dp[i][j - 2], dp[i][j] + 1);
-          }
-          if (i < n - 1 && j >= 1 && nums[i] + nums[j] == x) {
-            dp[i + 1][j - 1] = max(dp[i + 1][j - 1], dp[i][j] + 1);
-          }
+        dp[0][n - 1] = 0;
+        int x = nums[0] + nums[1];
+        for (int i = 0; i < n; i++) {
+            for (int j = n - 1; j > i; j--) {
+                if (dp[i][j] != -1) {
+                    if (i < n - 2 && nums[i] + nums[i + 1] == x) {
+                        dp[i + 2][j] = max(dp[i + 2][j], dp[i][j] + 1);
+                    }
+                    if (j >= 2 && nums[j] + nums[j - 1] == x) {
+                        dp[i][j - 2] = max(dp[i][j - 2], dp[i][j] + 1);
+                    }
+                    if (i < n - 1 && j >= 1 && nums[i] + nums[j] == x) {
+                        dp[i + 1][j - 1] = max(dp[i + 1][j - 1], dp[i][j] + 1);
+                    }
+                }
+            }
         }
-      }
-    }
-    for (int i = 0; i < n; i++) {
-      for (int j = 0; j < n; j++) {
-        ans = max(ans, dp[i][j]);
-      }
-    }
-    for (int i = 0; i < n; i++) {
-      for (int j = 0; j < n; j++) {
-        dp[i][j] = -1;
-      }
-    }
-    dp[0][n - 1] = 0;
-    x = nums[0] + nums[n - 1];
-    for (int i = 0; i < n; i++) {
-      for (int j = n - 1; j > i; j--) {
-        if (dp[i][j] != -1) {
-          if (i < n - 2 && nums[i] + nums[i + 1] == x) {
-            dp[i + 2][j] = max(dp[i + 2][j], dp[i][j] + 1);
-          }
-          if (j >= 2 && nums[j] + nums[j - 1] == x) {
-            dp[i][j - 2] = max(dp[i][j - 2], dp[i][j] + 1);
-          }
-          if (i < n - 1 && j >= 1 && nums[i] + nums[j] == x) {
-            dp[i + 1][j - 1] = max(dp[i + 1][j - 1], dp[i][j] + 1);
-          }
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                ans = max(ans, dp[i][j]);
+            }
         }
-      }
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                dp[i][j] = -1;
+            }
+        }
+        dp[0][n - 1] = 0;
+        x = nums[n - 2] + nums[n - 1];
+        for (int i = 0; i < n; i++) {
+            for (int j = n - 1; j > i; j--) {
+                if (dp[i][j] != -1) {
+                    if (i < n - 2 && nums[i] + nums[i + 1] == x) {
+                        dp[i + 2][j] = max(dp[i + 2][j], dp[i][j] + 1);
+                    }
+                    if (j >= 2 && nums[j] + nums[j - 1] == x) {
+                        dp[i][j - 2] = max(dp[i][j - 2], dp[i][j] + 1);
+                    }
+                    if (i < n - 1 && j >= 1 && nums[i] + nums[j] == x) {
+                        dp[i + 1][j - 1] = max(dp[i + 1][j - 1], dp[i][j] + 1);
+                    }
+                }
+            }
+        }
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                ans = max(ans, dp[i][j]);
+            }
+        }
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                dp[i][j] = -1;
+            }
+        }
+        dp[0][n - 1] = 0;
+        x = nums[0] + nums[n - 1];
+        for (int i = 0; i < n; i++) {
+            for (int j = n - 1; j > i; j--) {
+                if (dp[i][j] != -1) {
+                    if (i < n - 2 && nums[i] + nums[i + 1] == x) {
+                        dp[i + 2][j] = max(dp[i + 2][j], dp[i][j] + 1);
+                    }
+                    if (j >= 2 && nums[j] + nums[j - 1] == x) {
+                        dp[i][j - 2] = max(dp[i][j - 2], dp[i][j] + 1);
+                    }
+                    if (i < n - 1 && j >= 1 && nums[i] + nums[j] == x) {
+                        dp[i + 1][j - 1] = max(dp[i + 1][j - 1], dp[i][j] + 1);
+                    }
+                }
+            }
+        }
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                ans = max(ans, dp[i][j]);
+            }
+        }
+        return ans;
     }
-    for (int i = 0; i < n; i++) {
-      for (int j = 0; j < n; j++) {
-        ans = max(ans, dp[i][j]);
-      }
-    }
-    return ans;
-  }
 };
 
 // int Solution::maxOperations(vector<int> nums)
 
 int main() {
-  cout << "*** 3040. Maximum Number of Operations With the Same Score II ***"
-       << endl
-       << endl;
+    cout << "*** 3040. Maximum Number of Operations With the Same Score II ***"
+         << endl
+         << endl;
 
-  Solution s0;
+    Solution s0;
 
-  {
-    cout << "Test 1: ";
+    {
+        cout << "Test 1: ";
 
-    vector<int> nums = {3, 2, 1, 2, 3, 4};
-    int ans0 = s0.maxOperations(nums);
-    int exp0 = 3;
+        vector<int> nums = {3, 2, 1, 2, 3, 4};
+        int ans0 = s0.maxOperations(nums);
+        int exp0 = 3;
 
-    if (ans0 == exp0) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << ans0 << endl;
-      cout << "  Expect: " << exp0 << endl;
+        if (ans0 == exp0) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << ans0 << endl;
+            cout << "  Expect: " << exp0 << endl;
+        }
     }
-  }
 
-  {
-    cout << "Test 2: ";
+    {
+        cout << "Test 2: ";
 
-    vector<int> nums = {3, 2, 6, 1, 4};
-    int ans1 = s0.maxOperations(nums);
-    int exp1 = 2;
+        vector<int> nums = {3, 2, 6, 1, 4};
+        int ans1 = s0.maxOperations(nums);
+        int exp1 = 2;
 
-    if (ans1 == exp1) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << ans1 << endl;
-      cout << "  Expect: " << exp1 << endl;
+        if (ans1 == exp1) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << ans1 << endl;
+            cout << "  Expect: " << exp1 << endl;
+        }
     }
-  }
 
-  return 0;
+    return 0;
 }

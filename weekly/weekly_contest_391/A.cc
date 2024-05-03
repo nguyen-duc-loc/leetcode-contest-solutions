@@ -34,57 +34,57 @@
 using namespace std;
 
 class Solution {
- public:
-  int sumOfTheDigitsOfHarshadNumber(int x) {
-    string s = to_string(x);
-    int t = 0;
-    for (auto& e : s) {
-      t += e - '0';
+   public:
+    int sumOfTheDigitsOfHarshadNumber(int x) {
+        string s = to_string(x);
+        int t = 0;
+        for (auto& e : s) {
+            t += e - '0';
+        }
+        if (x % t)
+            return -1;
+        return t;
     }
-    if (x % t)
-      return -1;
-    return t;
-  }
 };
 
 // int Solution::sumOfTheDigitsOfHarshadNumber(int x)
 
 int main() {
-  cout << "*** 3099. Harshad Number ***" << endl << endl;
+    cout << "*** 3099. Harshad Number ***" << endl << endl;
 
-  Solution s0;
+    Solution s0;
 
-  {
-    cout << "Test 1: ";
+    {
+        cout << "Test 1: ";
 
-    int x = 18;
-    int ans0 = s0.sumOfTheDigitsOfHarshadNumber(x);
-    int exp0 = 9;
+        int x = 18;
+        int ans0 = s0.sumOfTheDigitsOfHarshadNumber(x);
+        int exp0 = 9;
 
-    if (ans0 == exp0) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << ans0 << endl;
-      cout << "  Expect: " << exp0 << endl;
+        if (ans0 == exp0) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << ans0 << endl;
+            cout << "  Expect: " << exp0 << endl;
+        }
     }
-  }
 
-  {
-    cout << "Test 2: ";
+    {
+        cout << "Test 2: ";
 
-    int x = 23;
-    int ans1 = s0.sumOfTheDigitsOfHarshadNumber(x);
-    int exp1 = -1;
+        int x = 23;
+        int ans1 = s0.sumOfTheDigitsOfHarshadNumber(x);
+        int exp1 = -1;
 
-    if (ans1 == exp1) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << ans1 << endl;
-      cout << "  Expect: " << exp1 << endl;
+        if (ans1 == exp1) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << ans1 << endl;
+            cout << "  Expect: " << exp1 << endl;
+        }
     }
-  }
 
-  return 0;
+    return 0;
 }

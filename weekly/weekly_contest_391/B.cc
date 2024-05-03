@@ -34,59 +34,59 @@
 using namespace std;
 
 class Solution {
- public:
-  int maxBottlesDrunk(int numBottles, int numExchange) {
-    int ans = numBottles;
-    while (numBottles >= numExchange) {
-      ans++;
-      numBottles -= numExchange;
-      numExchange++;
-      numBottles++;
+   public:
+    int maxBottlesDrunk(int numBottles, int numExchange) {
+        int ans = numBottles;
+        while (numBottles >= numExchange) {
+            ans++;
+            numBottles -= numExchange;
+            numExchange++;
+            numBottles++;
+        }
+        return ans;
     }
-    return ans;
-  }
 };
 
 // int Solution::maxBottlesDrunk(int numBottles, int numExchange)
 
 int main() {
-  cout << "*** 3100. Water Bottles II ***" << endl << endl;
+    cout << "*** 3100. Water Bottles II ***" << endl << endl;
 
-  Solution s0;
+    Solution s0;
 
-  {
-    cout << "Test 1: ";
+    {
+        cout << "Test 1: ";
 
-    int numBottles = 13;
-    int numExchange = 6;
-    int ans0 = s0.maxBottlesDrunk(numBottles, numExchange);
-    int exp0 = 15;
+        int numBottles = 13;
+        int numExchange = 6;
+        int ans0 = s0.maxBottlesDrunk(numBottles, numExchange);
+        int exp0 = 15;
 
-    if (ans0 == exp0) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << ans0 << endl;
-      cout << "  Expect: " << exp0 << endl;
+        if (ans0 == exp0) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << ans0 << endl;
+            cout << "  Expect: " << exp0 << endl;
+        }
     }
-  }
 
-  {
-    cout << "Test 2: ";
+    {
+        cout << "Test 2: ";
 
-    int numBottles = 10;
-    int numExchange = 3;
-    int ans1 = s0.maxBottlesDrunk(numBottles, numExchange);
-    int exp1 = 13;
+        int numBottles = 10;
+        int numExchange = 3;
+        int ans1 = s0.maxBottlesDrunk(numBottles, numExchange);
+        int exp1 = 13;
 
-    if (ans1 == exp1) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << ans1 << endl;
-      cout << "  Expect: " << exp1 << endl;
+        if (ans1 == exp1) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << ans1 << endl;
+            cout << "  Expect: " << exp1 << endl;
+        }
     }
-  }
 
-  return 0;
+    return 0;
 }

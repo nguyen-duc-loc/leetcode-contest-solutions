@@ -34,82 +34,82 @@
 using namespace std;
 
 class Solution {
- public:
-  int longestMonotonicSubarray(vector<int>& nums) {
-    int n = (int)nums.size();
-    vector<vector<int>> dp(n, vector<int>(2, 1));
-    for (int i = 1; i < n; i++) {
-      if (nums[i] > nums[i - 1]) {
-        dp[i][0] = dp[i - 1][0] + 1;
-      } else if (nums[i] < nums[i - 1]) {
-        dp[i][1] = dp[i - 1][1] + 1;
-      }
+   public:
+    int longestMonotonicSubarray(vector<int>& nums) {
+        int n = (int)nums.size();
+        vector<vector<int>> dp(n, vector<int>(2, 1));
+        for (int i = 1; i < n; i++) {
+            if (nums[i] > nums[i - 1]) {
+                dp[i][0] = dp[i - 1][0] + 1;
+            } else if (nums[i] < nums[i - 1]) {
+                dp[i][1] = dp[i - 1][1] + 1;
+            }
+        }
+        int ans = 0;
+        for (int i = 0; i < n; i++) {
+            ans = max({ans, dp[i][0], dp[i][1]});
+        }
+        return ans;
     }
-    int ans = 0;
-    for (int i = 0; i < n; i++) {
-      ans = max({ans, dp[i][0], dp[i][1]});
-    }
-    return ans;
-  }
 };
 
 // int Solution::longestMonotonicSubarray(vector<int> nums)
 
 int main() {
-  cout << "*** 3105. Longest Strictly Increasing or Strictly Decreasing "
-          "Subarray ***"
-       << endl
-       << endl;
+    cout << "*** 3105. Longest Strictly Increasing or Strictly Decreasing "
+            "Subarray ***"
+         << endl
+         << endl;
 
-  Solution s0;
+    Solution s0;
 
-  {
-    cout << "Test 1: ";
+    {
+        cout << "Test 1: ";
 
-    vector<int> nums = {1, 4, 3, 3, 2};
-    int ans0 = s0.longestMonotonicSubarray(nums);
-    int exp0 = 2;
+        vector<int> nums = {1, 4, 3, 3, 2};
+        int ans0 = s0.longestMonotonicSubarray(nums);
+        int exp0 = 2;
 
-    if (ans0 == exp0) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << ans0 << endl;
-      cout << "  Expect: " << exp0 << endl;
+        if (ans0 == exp0) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << ans0 << endl;
+            cout << "  Expect: " << exp0 << endl;
+        }
     }
-  }
 
-  {
-    cout << "Test 2: ";
+    {
+        cout << "Test 2: ";
 
-    vector<int> nums = {3, 3, 3, 3};
-    int ans1 = s0.longestMonotonicSubarray(nums);
-    int exp1 = 1;
+        vector<int> nums = {3, 3, 3, 3};
+        int ans1 = s0.longestMonotonicSubarray(nums);
+        int exp1 = 1;
 
-    if (ans1 == exp1) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << ans1 << endl;
-      cout << "  Expect: " << exp1 << endl;
+        if (ans1 == exp1) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << ans1 << endl;
+            cout << "  Expect: " << exp1 << endl;
+        }
     }
-  }
 
-  {
-    cout << "Test 3: ";
+    {
+        cout << "Test 3: ";
 
-    vector<int> nums = {3, 2, 1};
-    int ans2 = s0.longestMonotonicSubarray(nums);
-    int exp2 = 3;
+        vector<int> nums = {3, 2, 1};
+        int ans2 = s0.longestMonotonicSubarray(nums);
+        int exp2 = 3;
 
-    if (ans2 == exp2) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << ans2 << endl;
-      cout << "  Expect: " << exp2 << endl;
+        if (ans2 == exp2) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << ans2 << endl;
+            cout << "  Expect: " << exp2 << endl;
+        }
     }
-  }
 
-  return 0;
+    return 0;
 }

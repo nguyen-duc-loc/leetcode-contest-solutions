@@ -34,104 +34,104 @@
 using namespace std;
 
 class Solution {
- public:
-  vector<string> shortestSubstrings(vector<string>& arr) {
-    unordered_map<string, vector<int>> mp;
-    vector<string> ans;
-    for (int index = 0; index < (int)arr.size(); index++) {
-      string e = arr[index];
-      for (int i = 0; i < (int)e.size(); i++) {
-        for (int j = i; j < (int)e.size(); j++) {
-          string s = e.substr(i, j - i + 1);
-          mp[s].push_back(index);
-        }
-      }
-    }
-    for (int index = 0; index < (int)arr.size(); index++) {
-      string e = arr[index];
-      string t;
-      for (int i = 0; i < (int)e.size(); i++) {
-        for (int j = i; j < (int)e.size(); j++) {
-          string s = e.substr(i, j - i + 1);
-          bool ok = 1;
-          for (auto& x : mp[s]) {
-            if (x != index) {
-              ok = 0;
-              break;
+   public:
+    vector<string> shortestSubstrings(vector<string>& arr) {
+        unordered_map<string, vector<int>> mp;
+        vector<string> ans;
+        for (int index = 0; index < (int)arr.size(); index++) {
+            string e = arr[index];
+            for (int i = 0; i < (int)e.size(); i++) {
+                for (int j = i; j < (int)e.size(); j++) {
+                    string s = e.substr(i, j - i + 1);
+                    mp[s].push_back(index);
+                }
             }
-          }
-          if (ok) {
-            if (t.empty()) {
-              t = s;
-            } else {
-              if (s.size() < t.size()) {
-                t = s;
-              } else if (s.size() == t.size()) {
-                t = min(t, s);
-              }
-            }
-          }
         }
-      }
-      ans.push_back(t);
+        for (int index = 0; index < (int)arr.size(); index++) {
+            string e = arr[index];
+            string t;
+            for (int i = 0; i < (int)e.size(); i++) {
+                for (int j = i; j < (int)e.size(); j++) {
+                    string s = e.substr(i, j - i + 1);
+                    bool ok = 1;
+                    for (auto& x : mp[s]) {
+                        if (x != index) {
+                            ok = 0;
+                            break;
+                        }
+                    }
+                    if (ok) {
+                        if (t.empty()) {
+                            t = s;
+                        } else {
+                            if (s.size() < t.size()) {
+                                t = s;
+                            } else if (s.size() == t.size()) {
+                                t = min(t, s);
+                            }
+                        }
+                    }
+                }
+            }
+            ans.push_back(t);
+        }
+        return ans;
     }
-    return ans;
-  }
 };
 
 // vector<string> Solution::shortestSubstrings(vector<string> arr)
 
 int main() {
-  cout << "*** 3076. Shortest Uncommon Substring in an Array ***" << endl
-       << endl;
+    cout << "*** 3076. Shortest Uncommon Substring in an Array ***" << endl
+         << endl;
 
-  Solution s0;
+    Solution s0;
 
-  {
-    cout << "Test 1: ";
+    {
+        cout << "Test 1: ";
 
-    vector<string> arr = {"cab", "ad", "bad", "c"};
-    vector<string> ans0 = s0.shortestSubstrings(arr);
-    vector<string> exp0 = {"ab", "", "ba", ""};
+        vector<string> arr = {"cab", "ad", "bad", "c"};
+        vector<string> ans0 = s0.shortestSubstrings(arr);
+        vector<string> exp0 = {"ab", "", "ba", ""};
 
-    if (ans0 == exp0) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: ";
-      for (string& i : ans0) {
-        cout << i << " ";
-      }
-      cout << endl << "  Expect: ";
-      for (string& i : exp0) {
-        cout << i << " ";
-      }
-      cout << endl;
+        if (ans0 == exp0) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: ";
+            for (string& i : ans0) {
+                cout << i << " ";
+            }
+            cout << endl << "  Expect: ";
+            for (string& i : exp0) {
+                cout << i << " ";
+            }
+            cout << endl;
+        }
     }
-  }
 
-  {
-    cout << "Test 2: ";
+    {
+        cout << "Test 2: ";
 
-    vector<string> arr = {"abc", "bcd", "abcd"};
-    vector<string> ans1 = s0.shortestSubstrings(arr);
-    vector<string> exp1 = {"", "", "abcd"};
+        vector<string> arr = {"abc", "bcd", "abcd"};
+        vector<string> ans1 = s0.shortestSubstrings(arr);
+        vector<string> exp1 = {"", "", "abcd"};
 
-    if (ans1 == exp1) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: ";
-      for (string& i : ans1) {
-        cout << i << " ";
-      }
-      cout << endl << "  Expect: ";
-      for (string& i : exp1) {
-        cout << i << " ";
-      }
-      cout << endl;
+        if (ans1 == exp1) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: ";
+            for (string& i : ans1) {
+                cout << i << " ";
+            }
+            cout << endl << "  Expect: ";
+            for (string& i : exp1) {
+                cout << i << " ";
+            }
+            cout << endl;
+        }
     }
-  }
 
-  return 0;
+    return 0;
 }

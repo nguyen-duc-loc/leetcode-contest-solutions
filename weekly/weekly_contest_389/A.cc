@@ -3,45 +3,42 @@
 // https://leetcode.com/contest/weekly-contest-389/problems/existence-of-a-substring-in-a-string-and-its-reverse/
 
 #define _USE_MATH_DEFINES
+#include <algorithm>
+#include <array>
+#include <bitset>
 #include <climits>
 #include <cmath>
-
-#include <array>
 #include <deque>
 #include <forward_list>
-#include <list>
-#include <map>
-#include <queue>
-#include <set>
-#include <stack>
-#include <unordered_map>
-#include <unordered_set>
-#include <vector>
-
+#include <functional>
 #include <iomanip>
 #include <iostream>
-#include <sstream>
-
-#include <algorithm>
-#include <bitset>
-#include <functional>
 #include <iterator>
 #include <limits>
+#include <list>
+#include <map>
 #include <numeric>
+#include <queue>
 #include <regex>
+#include <set>
+#include <sstream>
+#include <stack>
 #include <string>
 #include <tuple>
+#include <unordered_map>
+#include <unordered_set>
 #include <utility>
 #include <valarray>
+#include <vector>
 
 using namespace std;
 
 class Solution {
-public:
+   public:
     bool isSubstringPresent(string s) {
         string t = s;
         reverse(t.begin(), t.end());
-        for (int i = 0; i < (int) s.size() - 1; i++) {
+        for (int i = 0; i < (int)s.size() - 1; i++) {
             if (t.find(s.substr(i, 2)) != string::npos) {
                 return true;
             }
@@ -53,7 +50,9 @@ public:
 // bool Solution::isSubstringPresent(string s)
 
 int main() {
-    cout << "*** 3083. Existence of a Substring in a String and Its Reverse ***" << endl << endl;
+    cout << "*** 3083. Existence of a Substring in a String and Its Reverse ***"
+         << endl
+         << endl;
 
     Solution s0;
 
@@ -66,8 +65,7 @@ int main() {
 
         if (ans0 == exp0) {
             cout << "Yes" << endl;
-        }
-        else {
+        } else {
             cout << "No" << endl;
             cout << "  Answer: " << ans0 << endl;
             cout << "  Expect: " << exp0 << endl;
@@ -83,8 +81,7 @@ int main() {
 
         if (ans1 == exp1) {
             cout << "Yes" << endl;
-        }
-        else {
+        } else {
             cout << "No" << endl;
             cout << "  Answer: " << ans1 << endl;
             cout << "  Expect: " << exp1 << endl;
@@ -100,8 +97,7 @@ int main() {
 
         if (ans2 == exp2) {
             cout << "Yes" << endl;
-        }
-        else {
+        } else {
             cout << "No" << endl;
             cout << "  Answer: " << ans2 << endl;
             cout << "  Expect: " << exp2 << endl;

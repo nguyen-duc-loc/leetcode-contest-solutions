@@ -34,115 +34,115 @@
 using namespace std;
 
 class Solution {
- public:
-  int minimumAddedInteger(vector<int>& nums1, vector<int>& nums2) {
-    sort(nums1.begin(), nums1.end());
-    sort(nums2.begin(), nums2.end());
-    int cnt = 2;
-    bool ok = 1;
-    int ans = INT_MAX, n = (int)nums2.size();
-    int diff = nums2.front() - nums1.front();
-    int i = 0, j = 0;
-    while (i < n + 2 && j < n) {
-      if (nums2[j] - nums1[i] == diff) {
-        i++;
-        j++;
-      } else {
-        if (!cnt) {
-          ok = 0;
-          break;
+   public:
+    int minimumAddedInteger(vector<int>& nums1, vector<int>& nums2) {
+        sort(nums1.begin(), nums1.end());
+        sort(nums2.begin(), nums2.end());
+        int cnt = 2;
+        bool ok = 1;
+        int ans = INT_MAX, n = (int)nums2.size();
+        int diff = nums2.front() - nums1.front();
+        int i = 0, j = 0;
+        while (i < n + 2 && j < n) {
+            if (nums2[j] - nums1[i] == diff) {
+                i++;
+                j++;
+            } else {
+                if (!cnt) {
+                    ok = 0;
+                    break;
+                }
+                i++;
+                cnt--;
+            }
         }
-        i++;
-        cnt--;
-      }
-    }
-    if (ok) {
-      ans = min(ans, diff);
-    }
-    diff = nums2.front() - nums1[1];
-    cnt = 1;
-    i = 1, j = 0;
-    ok = 1;
-    while (i < n + 2 && j < n) {
-      if (nums2[j] - nums1[i] == diff) {
-        i++;
-        j++;
-      } else {
-        if (!cnt) {
-          ok = 0;
-          break;
+        if (ok) {
+            ans = min(ans, diff);
         }
-        i++;
-        cnt--;
-      }
-    }
-    if (ok) {
-      ans = min(ans, diff);
-    }
-    diff = nums2.front() - nums1[2];
-    cnt = 0;
-    i = 2, j = 0;
-    ok = 1;
-    while (i < n + 2 && j < n) {
-      if (nums2[j] - nums1[i] == diff) {
-        i++;
-        j++;
-      } else {
-        if (!cnt) {
-          ok = 0;
-          break;
+        diff = nums2.front() - nums1[1];
+        cnt = 1;
+        i = 1, j = 0;
+        ok = 1;
+        while (i < n + 2 && j < n) {
+            if (nums2[j] - nums1[i] == diff) {
+                i++;
+                j++;
+            } else {
+                if (!cnt) {
+                    ok = 0;
+                    break;
+                }
+                i++;
+                cnt--;
+            }
         }
-        i++;
-        cnt--;
-      }
+        if (ok) {
+            ans = min(ans, diff);
+        }
+        diff = nums2.front() - nums1[2];
+        cnt = 0;
+        i = 2, j = 0;
+        ok = 1;
+        while (i < n + 2 && j < n) {
+            if (nums2[j] - nums1[i] == diff) {
+                i++;
+                j++;
+            } else {
+                if (!cnt) {
+                    ok = 0;
+                    break;
+                }
+                i++;
+                cnt--;
+            }
+        }
+        if (ok) {
+            ans = min(ans, diff);
+        }
+        return ans;
     }
-    if (ok) {
-      ans = min(ans, diff);
-    }
-    return ans;
-  }
 };
 
 // int Solution::minimumAddedInteger(vector<int> nums1, vector<int> nums2)
 
 int main() {
-  cout << "*** 3132. Find the Integer Added to Array II ***" << endl << endl;
+    cout << "*** 3132. Find the Integer Added to Array II ***" << endl << endl;
 
-  Solution s0;
+    Solution s0;
 
-  {
-    cout << "Test 1: ";
+    {
+        cout << "Test 1: ";
 
-    vector<int> nums1 = {4, 20, 16, 12, 8};
-    vector<int> nums2 = {14, 18, 10};
-    int ans0 = s0.minimumAddedInteger(nums1, nums2);
-    int exp0 = -2;
+        vector<int> nums1 = {4, 20, 16, 12, 8};
+        vector<int> nums2 = {14, 18, 10};
+        int ans0 = s0.minimumAddedInteger(nums1, nums2);
+        int exp0 = -2;
 
-    if (ans0 == exp0) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << ans0 << endl;
-      cout << "  Expect: " << exp0 << endl;
+        if (ans0 == exp0) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << ans0 << endl;
+            cout << "  Expect: " << exp0 << endl;
+        }
     }
-  }
 
-  {
-    cout << "Test 2: ";
+    {
+        cout << "Test 2: ";
 
-    vector<int> nums1 = {3, 5, 5, 3};
-    vector<int> nums2 = {7, 7};
-    int ans1 = s0.minimumAddedInteger(nums1, nums2);
-    int exp1 = 2;
+        vector<int> nums1 = {3, 5, 5, 3};
+        vector<int> nums2 = {7, 7};
+        int ans1 = s0.minimumAddedInteger(nums1, nums2);
+        int exp1 = 2;
 
-    if (ans1 == exp1) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << ans1 << endl;
-      cout << "  Expect: " << exp1 << endl;
+        if (ans1 == exp1) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << ans1 << endl;
+            cout << "  Expect: " << exp1 << endl;
+        }
     }
-  }
 
-  return 0;
+    return 0;
 }

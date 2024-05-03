@@ -34,104 +34,107 @@
 using namespace std;
 
 class Solution {
- public:
-  int minimumTimeToInitialState(string word, int k) {
-    int n = (int)word.size();
-    vector<long long> hashed = {0};
-    const long long mod = (long long)1e9 + 7;
-    const long long p = 31;
-    long long power = 1;
-    for (int i = 1; i <= n; i++) {
-      hashed.push_back((hashed.back() + (word[i - 1] - 'a' + 1) * power) % mod);
-      power = (power * p) % mod;
-    }
-    long long a = p, b = mod - 2, pm = 1;
-    while (b) {
-      if (b & 1)
-        pm *= a;
-      pm %= mod;
-      a *= a;
-      a %= mod;
-      b >>= 1;
-    }
-    vector<long long> pow = {1, 1};
-    for (int i = 2; i <= n; i++) {
-      pow.push_back((pow.back() * pm) % mod);
-    }
-    int ans = 1;
-    int i = k + 1;
-    while (i <= (int)word.size()) {
-      long long h1 = ((hashed.back() - hashed[i - 1] + mod) % mod) * pow[i];
-      h1 %= mod;
-      long long h2 = hashed[n - i + 1];
-      if (h1 == h2) {
+   public:
+    int minimumTimeToInitialState(string word, int k) {
+        int n = (int)word.size();
+        vector<long long> hashed = {0};
+        const long long mod = (long long)1e9 + 7;
+        const long long p = 31;
+        long long power = 1;
+        for (int i = 1; i <= n; i++) {
+            hashed.push_back((hashed.back() + (word[i - 1] - 'a' + 1) * power) %
+                             mod);
+            power = (power * p) % mod;
+        }
+        long long a = p, b = mod - 2, pm = 1;
+        while (b) {
+            if (b & 1)
+                pm *= a;
+            pm %= mod;
+            a *= a;
+            a %= mod;
+            b >>= 1;
+        }
+        vector<long long> pow = {1, 1};
+        for (int i = 2; i <= n; i++) {
+            pow.push_back((pow.back() * pm) % mod);
+        }
+        int ans = 1;
+        int i = k + 1;
+        while (i <= (int)word.size()) {
+            long long h1 =
+                ((hashed.back() - hashed[i - 1] + mod) % mod) * pow[i];
+            h1 %= mod;
+            long long h2 = hashed[n - i + 1];
+            if (h1 == h2) {
+                return ans;
+            }
+            ans++;
+            i += k;
+        }
         return ans;
-      }
-      ans++;
-      i += k;
     }
-    return ans;
-  }
 };
 
 // int Solution::minimumTimeToInitialState(string word, int k)
 
 int main() {
-  cout << "*** 3029. Minimum Time to Revert Word to Initial State I ***" << endl
-       << endl;
+    cout << "*** 3029. Minimum Time to Revert Word to Initial State I ***"
+         << endl
+         << endl;
 
-  Solution s0;
+    Solution s0;
 
-  {
-    cout << "Test 1: ";
+    {
+        cout << "Test 1: ";
 
-    string word = "abacaba";
-    int k = 3;
-    int ans0 = s0.minimumTimeToInitialState(word, k);
-    int exp0 = 2;
+        string word = "abacaba";
+        int k = 3;
+        int ans0 = s0.minimumTimeToInitialState(word, k);
+        int exp0 = 2;
 
-    if (ans0 == exp0) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << ans0 << endl;
-      cout << "  Expect: " << exp0 << endl;
+        if (ans0 == exp0) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << ans0 << endl;
+            cout << "  Expect: " << exp0 << endl;
+        }
     }
-  }
 
-  {
-    cout << "Test 2: ";
+    {
+        cout << "Test 2: ";
 
-    string word = "abacaba";
-    int k = 4;
-    int ans1 = s0.minimumTimeToInitialState(word, k);
-    int exp1 = 1;
+        string word = "abacaba";
+        int k = 4;
+        int ans1 = s0.minimumTimeToInitialState(word, k);
+        int exp1 = 1;
 
-    if (ans1 == exp1) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << ans1 << endl;
-      cout << "  Expect: " << exp1 << endl;
+        if (ans1 == exp1) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << ans1 << endl;
+            cout << "  Expect: " << exp1 << endl;
+        }
     }
-  }
 
-  {
-    cout << "Test 3: ";
+    {
+        cout << "Test 3: ";
 
-    string word = "abcbabcd";
-    int k = 2;
-    int ans2 = s0.minimumTimeToInitialState(word, k);
-    int exp2 = 4;
+        string word = "abcbabcd";
+        int k = 2;
+        int ans2 = s0.minimumTimeToInitialState(word, k);
+        int exp2 = 4;
 
-    if (ans2 == exp2) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << ans2 << endl;
-      cout << "  Expect: " << exp2 << endl;
+        if (ans2 == exp2) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << ans2 << endl;
+            cout << "  Expect: " << exp2 << endl;
+        }
     }
-  }
 
-  return 0;
+    return 0;
 }

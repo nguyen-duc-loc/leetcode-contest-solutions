@@ -34,87 +34,87 @@
 using namespace std;
 
 class Solution {
- public:
-  string getSmallestString(string s, int k) {
-    string ans;
-    for (int i = 0; i < (int)s.size(); i++) {
-      if (k == 0) {
-        ans.push_back(s[i]);
-      } else {
-        int t = min(s[i] - 'a', 26 - s[i] + 'a');
-        if (k < t) {
-          ans.push_back(char(s[i] - k));
-          k = 0;
-        } else {
-          ans.push_back('a');
-          k -= t;
+   public:
+    string getSmallestString(string s, int k) {
+        string ans;
+        for (int i = 0; i < (int)s.size(); i++) {
+            if (k == 0) {
+                ans.push_back(s[i]);
+            } else {
+                int t = min(s[i] - 'a', 26 - s[i] + 'a');
+                if (k < t) {
+                    ans.push_back(char(s[i] - k));
+                    k = 0;
+                } else {
+                    ans.push_back('a');
+                    k -= t;
+                }
+            }
         }
-      }
+        return ans;
     }
-    return ans;
-  }
 };
 
 // string Solution::getSmallestString(string s, int k)
 
 int main() {
-  cout << "*** 3106. Lexicographically Smallest String After Operations With "
-          "Constraint ***"
-       << endl
-       << endl;
+    cout << "*** 3106. Lexicographically Smallest String After Operations With "
+            "Constraint ***"
+         << endl
+         << endl;
 
-  Solution s0;
+    Solution s0;
 
-  {
-    cout << "Test 1: ";
+    {
+        cout << "Test 1: ";
 
-    string s = "zbbz";
-    int k = 3;
-    string ans0 = s0.getSmallestString(s, k);
-    string exp0 = "aaaz";
+        string s = "zbbz";
+        int k = 3;
+        string ans0 = s0.getSmallestString(s, k);
+        string exp0 = "aaaz";
 
-    if (ans0 == exp0) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << ans0 << endl;
-      cout << "  Expect: " << exp0 << endl;
+        if (ans0 == exp0) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << ans0 << endl;
+            cout << "  Expect: " << exp0 << endl;
+        }
     }
-  }
 
-  {
-    cout << "Test 2: ";
+    {
+        cout << "Test 2: ";
 
-    string s = "xaxcd";
-    int k = 4;
-    string ans1 = s0.getSmallestString(s, k);
-    string exp1 = "aawcd";
+        string s = "xaxcd";
+        int k = 4;
+        string ans1 = s0.getSmallestString(s, k);
+        string exp1 = "aawcd";
 
-    if (ans1 == exp1) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << ans1 << endl;
-      cout << "  Expect: " << exp1 << endl;
+        if (ans1 == exp1) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << ans1 << endl;
+            cout << "  Expect: " << exp1 << endl;
+        }
     }
-  }
 
-  {
-    cout << "Test 3: ";
+    {
+        cout << "Test 3: ";
 
-    string s = "lol";
-    int k = 0;
-    string ans2 = s0.getSmallestString(s, k);
-    string exp2 = "lol";
+        string s = "lol";
+        int k = 0;
+        string ans2 = s0.getSmallestString(s, k);
+        string exp2 = "lol";
 
-    if (ans2 == exp2) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << ans2 << endl;
-      cout << "  Expect: " << exp2 << endl;
+        if (ans2 == exp2) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << ans2 << endl;
+            cout << "  Expect: " << exp2 << endl;
+        }
     }
-  }
 
-  return 0;
+    return 0;
 }

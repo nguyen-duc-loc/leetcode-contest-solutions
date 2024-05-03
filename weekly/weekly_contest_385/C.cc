@@ -34,153 +34,153 @@
 using namespace std;
 
 class Solution {
- public:
-  bool check(int n) {
-    if (n < 2)
-      return true;
-    for (int i = 2; i <= (int)sqrt(n); i++) {
-      if (n % i == 0)
-        return false;
+   public:
+    bool check(int n) {
+        if (n < 2)
+            return true;
+        for (int i = 2; i <= (int)sqrt(n); i++) {
+            if (n % i == 0)
+                return false;
+        }
+        return true;
     }
-    return true;
-  }
 
-  int mostFrequentPrime(vector<vector<int>>& mat) {
-    map<int, int> mp;
-    int m = (int)mat.size(), n = (int)mat[0].size();
-    for (int i = 0; i < m; i++) {
-      for (int j = 0; j < n; j++) {
-        string s = to_string(mat[i][j]);
-        for (int k = 1; j + k < n; k++) {
-          s.push_back(char(mat[i][j + k] + '0'));
-          int x = stoi(s);
-          if (check(x)) {
-            mp[x]++;
-          }
+    int mostFrequentPrime(vector<vector<int>>& mat) {
+        map<int, int> mp;
+        int m = (int)mat.size(), n = (int)mat[0].size();
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                string s = to_string(mat[i][j]);
+                for (int k = 1; j + k < n; k++) {
+                    s.push_back(char(mat[i][j + k] + '0'));
+                    int x = stoi(s);
+                    if (check(x)) {
+                        mp[x]++;
+                    }
+                }
+                s = to_string(mat[i][j]);
+                for (int k = 1; j - k >= 0; k++) {
+                    s.push_back(char(mat[i][j - k] + '0'));
+                    int x = stoi(s);
+                    if (check(x)) {
+                        mp[x]++;
+                    }
+                }
+                s = to_string(mat[i][j]);
+                for (int k = 1; i + k < m; k++) {
+                    s.push_back(char(mat[i + k][j] + '0'));
+                    int x = stoi(s);
+                    if (check(x)) {
+                        mp[x]++;
+                    }
+                }
+                s = to_string(mat[i][j]);
+                for (int k = 1; i - k >= 0; k++) {
+                    s.push_back(char(mat[i - k][j] + '0'));
+                    int x = stoi(s);
+                    if (check(x)) {
+                        mp[x]++;
+                    }
+                }
+                s = to_string(mat[i][j]);
+                for (int k = 1; j + k < n && i + k < m; k++) {
+                    s.push_back(char(mat[i + k][j + k] + '0'));
+                    int x = stoi(s);
+                    if (check(x)) {
+                        mp[x]++;
+                    }
+                }
+                s = to_string(mat[i][j]);
+                for (int k = 1; j + k < n && i - k >= 0; k++) {
+                    s.push_back(char(mat[i - k][j + k] + '0'));
+                    int x = stoi(s);
+                    if (check(x)) {
+                        mp[x]++;
+                    }
+                }
+                s = to_string(mat[i][j]);
+                for (int k = 1; j - k >= 0 && i + k < m; k++) {
+                    s.push_back(char(mat[i + k][j - k] + '0'));
+                    int x = stoi(s);
+                    if (check(x)) {
+                        mp[x]++;
+                    }
+                }
+                s = to_string(mat[i][j]);
+                for (int k = 1; j - k >= 0 && i - k >= 0; k++) {
+                    s.push_back(char(mat[i - k][j - k] + '0'));
+                    int x = stoi(s);
+                    if (check(x)) {
+                        mp[x]++;
+                    }
+                }
+            }
         }
-        s = to_string(mat[i][j]);
-        for (int k = 1; j - k >= 0; k++) {
-          s.push_back(char(mat[i][j - k] + '0'));
-          int x = stoi(s);
-          if (check(x)) {
-            mp[x]++;
-          }
+        vector<pair<int, int>> v;
+        for (auto& e : mp) {
+            v.emplace_back(-e.second, -e.first);
         }
-        s = to_string(mat[i][j]);
-        for (int k = 1; i + k < m; k++) {
-          s.push_back(char(mat[i + k][j] + '0'));
-          int x = stoi(s);
-          if (check(x)) {
-            mp[x]++;
-          }
-        }
-        s = to_string(mat[i][j]);
-        for (int k = 1; i - k >= 0; k++) {
-          s.push_back(char(mat[i - k][j] + '0'));
-          int x = stoi(s);
-          if (check(x)) {
-            mp[x]++;
-          }
-        }
-        s = to_string(mat[i][j]);
-        for (int k = 1; j + k < n && i + k < m; k++) {
-          s.push_back(char(mat[i + k][j + k] + '0'));
-          int x = stoi(s);
-          if (check(x)) {
-            mp[x]++;
-          }
-        }
-        s = to_string(mat[i][j]);
-        for (int k = 1; j + k < n && i - k >= 0; k++) {
-          s.push_back(char(mat[i - k][j + k] + '0'));
-          int x = stoi(s);
-          if (check(x)) {
-            mp[x]++;
-          }
-        }
-        s = to_string(mat[i][j]);
-        for (int k = 1; j - k >= 0 && i + k < m; k++) {
-          s.push_back(char(mat[i + k][j - k] + '0'));
-          int x = stoi(s);
-          if (check(x)) {
-            mp[x]++;
-          }
-        }
-        s = to_string(mat[i][j]);
-        for (int k = 1; j - k >= 0 && i - k >= 0; k++) {
-          s.push_back(char(mat[i - k][j - k] + '0'));
-          int x = stoi(s);
-          if (check(x)) {
-            mp[x]++;
-          }
-        }
-      }
+        sort(v.begin(), v.end());
+        if (!v.empty())
+            return -v.front().second;
+        return -1;
     }
-    vector<pair<int, int>> v;
-    for (auto& e : mp) {
-      v.emplace_back(-e.second, -e.first);
-    }
-    sort(v.begin(), v.end());
-    if (!v.empty())
-      return -v.front().second;
-    return -1;
-  }
 };
 
 // int Solution::mostFrequentPrime(vector<vector<int>> mat)
 
 int main() {
-  cout << "*** 3044. Most Frequent Prime ***" << endl << endl;
+    cout << "*** 3044. Most Frequent Prime ***" << endl << endl;
 
-  Solution s0;
+    Solution s0;
 
-  {
-    cout << "Test 1: ";
+    {
+        cout << "Test 1: ";
 
-    vector<vector<int>> mat = {{1, 1}, {9, 9}, {1, 1}};
-    int ans0 = s0.mostFrequentPrime(mat);
-    int exp0 = 19;
+        vector<vector<int>> mat = {{1, 1}, {9, 9}, {1, 1}};
+        int ans0 = s0.mostFrequentPrime(mat);
+        int exp0 = 19;
 
-    if (ans0 == exp0) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << ans0 << endl;
-      cout << "  Expect: " << exp0 << endl;
+        if (ans0 == exp0) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << ans0 << endl;
+            cout << "  Expect: " << exp0 << endl;
+        }
     }
-  }
 
-  {
-    cout << "Test 2: ";
+    {
+        cout << "Test 2: ";
 
-    vector<vector<int>> mat = {{7}};
-    int ans1 = s0.mostFrequentPrime(mat);
-    int exp1 = -1;
+        vector<vector<int>> mat = {{7}};
+        int ans1 = s0.mostFrequentPrime(mat);
+        int exp1 = -1;
 
-    if (ans1 == exp1) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << ans1 << endl;
-      cout << "  Expect: " << exp1 << endl;
+        if (ans1 == exp1) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << ans1 << endl;
+            cout << "  Expect: " << exp1 << endl;
+        }
     }
-  }
 
-  {
-    cout << "Test 3: ";
+    {
+        cout << "Test 3: ";
 
-    vector<vector<int>> mat = {{9, 7, 8}, {4, 6, 5}, {2, 8, 6}};
-    int ans2 = s0.mostFrequentPrime(mat);
-    int exp2 = 97;
+        vector<vector<int>> mat = {{9, 7, 8}, {4, 6, 5}, {2, 8, 6}};
+        int ans2 = s0.mostFrequentPrime(mat);
+        int exp2 = 97;
 
-    if (ans2 == exp2) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << ans2 << endl;
-      cout << "  Expect: " << exp2 << endl;
+        if (ans2 == exp2) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << ans2 << endl;
+            cout << "  Expect: " << exp2 << endl;
+        }
     }
-  }
 
-  return 0;
+    return 0;
 }

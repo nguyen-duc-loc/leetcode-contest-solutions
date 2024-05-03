@@ -34,56 +34,57 @@
 using namespace std;
 
 class Solution {
- public:
-  long long countSubstrings(string s, char c) {
-    long long t = (long long)count(s.begin(), s.end(), c);
-    return t * (t + 1) / 2;
-  }
+   public:
+    long long countSubstrings(string s, char c) {
+        long long t = (long long)count(s.begin(), s.end(), c);
+        return t * (t + 1) / 2;
+    }
 };
 
 // long long Solution::countSubstrings(string s, char c)
 
 int main() {
-  cout << "*** 3084. Count Substrings Starting and Ending with Given Character "
-          "***"
-       << endl
-       << endl;
+    cout << "*** 3084. Count Substrings Starting and Ending with Given "
+            "Character "
+            "***"
+         << endl
+         << endl;
 
-  Solution s0;
+    Solution s0;
 
-  {
-    cout << "Test 1: ";
+    {
+        cout << "Test 1: ";
 
-    string s = "abada";
-    char c = 'a';
-    long long ans0 = s0.countSubstrings(s, c);
-    long long exp0 = 6;
+        string s = "abada";
+        char c = 'a';
+        long long ans0 = s0.countSubstrings(s, c);
+        long long exp0 = 6;
 
-    if (ans0 == exp0) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << ans0 << endl;
-      cout << "  Expect: " << exp0 << endl;
+        if (ans0 == exp0) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << ans0 << endl;
+            cout << "  Expect: " << exp0 << endl;
+        }
     }
-  }
 
-  {
-    cout << "Test 2: ";
+    {
+        cout << "Test 2: ";
 
-    string s = "zzz";
-    char c = 'z';
-    long long ans1 = s0.countSubstrings(s, c);
-    long long exp1 = 6;
+        string s = "zzz";
+        char c = 'z';
+        long long ans1 = s0.countSubstrings(s, c);
+        long long exp1 = 6;
 
-    if (ans1 == exp1) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << ans1 << endl;
-      cout << "  Expect: " << exp1 << endl;
+        if (ans1 == exp1) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << ans1 << endl;
+            cout << "  Expect: " << exp1 << endl;
+        }
     }
-  }
 
-  return 0;
+    return 0;
 }

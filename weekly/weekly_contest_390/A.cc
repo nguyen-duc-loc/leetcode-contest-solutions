@@ -34,70 +34,71 @@
 using namespace std;
 
 class Solution {
- public:
-  bool check(string s) {
-    vector<int> v(26);
-    for (auto& e : s) {
-      v[e - 'a']++;
-      if (v[e - 'a'] > 2)
-        return false;
-    }
-    return true;
-  }
-
-  int maximumLengthSubstring(string s) {
-    int ans = 0;
-    int n = (int)s.size();
-    for (int j = 1; j <= n; j++) {
-      for (int i = 0; i < n; i++) {
-        if (i + j <= n && check(s.substr(i, j))) {
-          ans = max(ans, j);
+   public:
+    bool check(string s) {
+        vector<int> v(26);
+        for (auto& e : s) {
+            v[e - 'a']++;
+            if (v[e - 'a'] > 2)
+                return false;
         }
-      }
+        return true;
     }
-    return ans;
-  }
+
+    int maximumLengthSubstring(string s) {
+        int ans = 0;
+        int n = (int)s.size();
+        for (int j = 1; j <= n; j++) {
+            for (int i = 0; i < n; i++) {
+                if (i + j <= n && check(s.substr(i, j))) {
+                    ans = max(ans, j);
+                }
+            }
+        }
+        return ans;
+    }
 };
 
 // int Solution::maximumLengthSubstring(string s)
 
 int main() {
-  cout << "*** 3090. Maximum Length Substring With Two Occurrences ***" << endl
-       << endl;
+    cout << "*** 3090. Maximum Length Substring With Two Occurrences ***"
+         << endl
+         << endl;
 
-  Solution s0;
+    Solution s0;
 
-  {
-    cout << "Test 1: ";
+    {
+        cout << "Test 1: ";
 
-    string s = "bcbbbcba";
-    int ans0 = s0.maximumLengthSubstring(s);
-    int exp0 = 4;
+        string s = "bcbbbcba";
+        int ans0 = s0.maximumLengthSubstring(s);
+        int exp0 = 4;
 
-    if (ans0 == exp0) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << ans0 << endl;
-      cout << "  Expect: " << exp0 << endl;
+        if (ans0 == exp0) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << ans0 << endl;
+            cout << "  Expect: " << exp0 << endl;
+        }
     }
-  }
 
-  {
-    cout << "Test 2: ";
+    {
+        cout << "Test 2: ";
 
-    string s = "aaaa";
-    int ans1 = s0.maximumLengthSubstring(s);
-    int exp1 = 2;
+        string s = "aaaa";
+        int ans1 = s0.maximumLengthSubstring(s);
+        int exp1 = 2;
 
-    if (ans1 == exp1) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << ans1 << endl;
-      cout << "  Expect: " << exp1 << endl;
+        if (ans1 == exp1) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << ans1 << endl;
+            cout << "  Expect: " << exp1 << endl;
+        }
     }
-  }
 
-  return 0;
+    return 0;
 }

@@ -34,64 +34,64 @@
 using namespace std;
 
 class Solution {
- public:
-  long long maxSpending(vector<vector<int>>& values) {
-    int m = (int)values.size();
-    int n = (int)values[0].size();
-    vector<int> v;
-    for (auto& e : values) {
-      for (auto& x : e) {
-        v.push_back(x);
-      }
+   public:
+    long long maxSpending(vector<vector<int>>& values) {
+        int m = (int)values.size();
+        int n = (int)values[0].size();
+        vector<int> v;
+        for (auto& e : values) {
+            for (auto& x : e) {
+                v.push_back(x);
+            }
+        }
+        sort(v.begin(), v.end());
+        int d = 1;
+        long long ans = 0;
+        for (auto& e : v) {
+            ans += 1LL * e * (d++);
+        }
+        return ans;
     }
-    sort(v.begin(), v.end());
-    int d = 1;
-    long long ans = 0;
-    for (auto& e : v) {
-      ans += 1LL * e * (d++);
-    }
-    return ans;
-  }
 };
 
 // long long Solution::maxSpending(vector<vector<int>> values)
 
 int main() {
-  cout << "*** 2931. Maximum Spending After Buying Items ***" << endl << endl;
+    cout << "*** 2931. Maximum Spending After Buying Items ***" << endl << endl;
 
-  Solution s0;
+    Solution s0;
 
-  {
-    cout << "Test 1: ";
+    {
+        cout << "Test 1: ";
 
-    vector<vector<int>> values = {{8, 5, 2}, {6, 4, 1}, {9, 7, 3}};
-    long long ans0 = s0.maxSpending(values);
-    long long exp0 = 285;
+        vector<vector<int>> values = {{8, 5, 2}, {6, 4, 1}, {9, 7, 3}};
+        long long ans0 = s0.maxSpending(values);
+        long long exp0 = 285;
 
-    if (ans0 == exp0) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << ans0 << endl;
-      cout << "  Expect: " << exp0 << endl;
+        if (ans0 == exp0) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << ans0 << endl;
+            cout << "  Expect: " << exp0 << endl;
+        }
     }
-  }
 
-  {
-    cout << "Test 2: ";
+    {
+        cout << "Test 2: ";
 
-    vector<vector<int>> values = {{10, 8, 6, 4, 2}, {9, 7, 5, 3, 2}};
-    long long ans1 = s0.maxSpending(values);
-    long long exp1 = 386;
+        vector<vector<int>> values = {{10, 8, 6, 4, 2}, {9, 7, 5, 3, 2}};
+        long long ans1 = s0.maxSpending(values);
+        long long exp1 = 386;
 
-    if (ans1 == exp1) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << ans1 << endl;
-      cout << "  Expect: " << exp1 << endl;
+        if (ans1 == exp1) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << ans1 << endl;
+            cout << "  Expect: " << exp1 << endl;
+        }
     }
-  }
 
-  return 0;
+    return 0;
 }

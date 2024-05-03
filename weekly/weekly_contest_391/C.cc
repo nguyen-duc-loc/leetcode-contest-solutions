@@ -34,58 +34,58 @@
 using namespace std;
 
 class Solution {
- public:
-  long long countAlternatingSubarrays(vector<int>& nums) {
-    int l = 0;
-    long long ans = 1;
-    for (int r = 1; r < (int)nums.size(); r++) {
-      if (nums[r] == nums[r - 1]) {
-        l = r;
-      }
-      ans += 1LL * (r - l + 1);
+   public:
+    long long countAlternatingSubarrays(vector<int>& nums) {
+        int l = 0;
+        long long ans = 1;
+        for (int r = 1; r < (int)nums.size(); r++) {
+            if (nums[r] == nums[r - 1]) {
+                l = r;
+            }
+            ans += 1LL * (r - l + 1);
+        }
+        return ans;
     }
-    return ans;
-  }
 };
 
 // long long Solution::countAlternatingSubarrays(vector<int> nums)
 
 int main() {
-  cout << "*** 3101. Count Alternating Subarrays ***" << endl << endl;
+    cout << "*** 3101. Count Alternating Subarrays ***" << endl << endl;
 
-  Solution s0;
+    Solution s0;
 
-  {
-    cout << "Test 1: ";
+    {
+        cout << "Test 1: ";
 
-    vector<int> nums = {0, 1, 1, 1};
-    long long ans0 = s0.countAlternatingSubarrays(nums);
-    long long exp0 = 5;
+        vector<int> nums = {0, 1, 1, 1};
+        long long ans0 = s0.countAlternatingSubarrays(nums);
+        long long exp0 = 5;
 
-    if (ans0 == exp0) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << ans0 << endl;
-      cout << "  Expect: " << exp0 << endl;
+        if (ans0 == exp0) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << ans0 << endl;
+            cout << "  Expect: " << exp0 << endl;
+        }
     }
-  }
 
-  {
-    cout << "Test 2: ";
+    {
+        cout << "Test 2: ";
 
-    vector<int> nums = {1, 0, 1, 0};
-    long long ans1 = s0.countAlternatingSubarrays(nums);
-    long long exp1 = 10;
+        vector<int> nums = {1, 0, 1, 0};
+        long long ans1 = s0.countAlternatingSubarrays(nums);
+        long long exp1 = 10;
 
-    if (ans1 == exp1) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << ans1 << endl;
-      cout << "  Expect: " << exp1 << endl;
+        if (ans1 == exp1) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << ans1 << endl;
+            cout << "  Expect: " << exp1 << endl;
+        }
     }
-  }
 
-  return 0;
+    return 0;
 }

@@ -34,79 +34,80 @@
 using namespace std;
 
 class Solution {
- public:
-  long long minimumMoves(vector<int>& nums, int k, int maxChanges) {
-    constexpr int kNumOfIndicesWithinOneDistance = 3;
-    long long ans = LLONG_MAX;
-    vector<int> oneIndices;
-    vector<long long> prefix{0};
+   public:
+    long long minimumMoves(vector<int>& nums, int k, int maxChanges) {
+        constexpr int kNumOfIndicesWithinOneDistance = 3;
+        long long ans = LLONG_MAX;
+        vector<int> oneIndices;
+        vector<long long> prefix{0};
 
-    for (int i = 0; i < nums.size(); ++i)
-      if (nums[i] == 1)
-        oneIndices.push_back(i);
+        for (int i = 0; i < nums.size(); ++i)
+            if (nums[i] == 1)
+                oneIndices.push_back(i);
 
-    for (const int oneIndex : oneIndices)
-      prefix.push_back(prefix.back() + oneIndex);
+        for (const int oneIndex : oneIndices)
+            prefix.push_back(prefix.back() + oneIndex);
 
-    const int minOnesByTwo = max(0, k - maxChanges);
-    const int maxOnesByTwo =
-        min({k, minOnesByTwo + kNumOfIndicesWithinOneDistance,
-             static_cast<int>(oneIndices.size())});
+        const int minOnesByTwo = max(0, k - maxChanges);
+        const int maxOnesByTwo =
+            min({k, minOnesByTwo + kNumOfIndicesWithinOneDistance,
+                 static_cast<int>(oneIndices.size())});
 
-    for (int onesByTwo = minOnesByTwo; onesByTwo <= maxOnesByTwo; ++onesByTwo)
-      for (int l = 0; l + onesByTwo < prefix.size(); ++l) {
-        const int r = l + onesByTwo;
-        const long long cost1 = (k - onesByTwo) * 2;
-        const long long cost2 = (prefix[r] - prefix[(l + r) / 2]) -
-                                (prefix[(l + r + 1) / 2] - prefix[l]);
-        ans = min(ans, cost1 + cost2);
-      }
+        for (int onesByTwo = minOnesByTwo; onesByTwo <= maxOnesByTwo;
+             ++onesByTwo)
+            for (int l = 0; l + onesByTwo < prefix.size(); ++l) {
+                const int r = l + onesByTwo;
+                const long long cost1 = (k - onesByTwo) * 2;
+                const long long cost2 = (prefix[r] - prefix[(l + r) / 2]) -
+                                        (prefix[(l + r + 1) / 2] - prefix[l]);
+                ans = min(ans, cost1 + cost2);
+            }
 
-    return ans;
-  }
+        return ans;
+    }
 };
 // long long Solution::minimumMoves(vector<int> nums, int k, int maxChanges)
 
 int main() {
-  cout << "*** 3086. Minimum Moves to Pick K Ones ***" << endl << endl;
+    cout << "*** 3086. Minimum Moves to Pick K Ones ***" << endl << endl;
 
-  Solution s0;
+    Solution s0;
 
-  {
-    cout << "Test 1: ";
+    {
+        cout << "Test 1: ";
 
-    vector<int> nums = {1, 1, 0, 0, 0, 1, 1, 0, 0, 1};
-    int k = 3;
-    int maxChanges = 1;
-    long long ans0 = s0.minimumMoves(nums, k, maxChanges);
-    long long exp0 = 3;
+        vector<int> nums = {1, 1, 0, 0, 0, 1, 1, 0, 0, 1};
+        int k = 3;
+        int maxChanges = 1;
+        long long ans0 = s0.minimumMoves(nums, k, maxChanges);
+        long long exp0 = 3;
 
-    if (ans0 == exp0) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << ans0 << endl;
-      cout << "  Expect: " << exp0 << endl;
+        if (ans0 == exp0) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << ans0 << endl;
+            cout << "  Expect: " << exp0 << endl;
+        }
     }
-  }
 
-  {
-    cout << "Test 2: ";
+    {
+        cout << "Test 2: ";
 
-    vector<int> nums = {0, 0, 0, 0};
-    int k = 2;
-    int maxChanges = 3;
-    long long ans1 = s0.minimumMoves(nums, k, maxChanges);
-    long long exp1 = 4;
+        vector<int> nums = {0, 0, 0, 0};
+        int k = 2;
+        int maxChanges = 3;
+        long long ans1 = s0.minimumMoves(nums, k, maxChanges);
+        long long exp1 = 4;
 
-    if (ans1 == exp1) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << ans1 << endl;
-      cout << "  Expect: " << exp1 << endl;
+        if (ans1 == exp1) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << ans1 << endl;
+            cout << "  Expect: " << exp1 << endl;
+        }
     }
-  }
 
-  return 0;
+    return 0;
 }

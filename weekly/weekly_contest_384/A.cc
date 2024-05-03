@@ -34,88 +34,88 @@
 using namespace std;
 
 class Solution {
- public:
-  vector<vector<int>> modifiedMatrix(vector<vector<int>>& matrix) {
-    int m = (int)matrix.size(), n = (int)matrix[0].size();
-    vector<int> v(n, INT_MIN);
-    for (int i = 0; i < n; i++) {
-      for (int j = 0; j < m; j++) {
-        v[i] = max(matrix[j][i], v[i]);
-      }
-    }
-    for (int i = 0; i < m; i++) {
-      for (int j = 0; j < n; j++) {
-        if (matrix[i][j] == -1) {
-          matrix[i][j] = v[j];
+   public:
+    vector<vector<int>> modifiedMatrix(vector<vector<int>>& matrix) {
+        int m = (int)matrix.size(), n = (int)matrix[0].size();
+        vector<int> v(n, INT_MIN);
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                v[i] = max(matrix[j][i], v[i]);
+            }
         }
-      }
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (matrix[i][j] == -1) {
+                    matrix[i][j] = v[j];
+                }
+            }
+        }
+        return matrix;
     }
-    return matrix;
-  }
 };
 
 // vector<vector<int>> Solution::modifiedMatrix(vector<vector<int>> matrix)
 
 int main() {
-  cout << "*** 3033. Modify the Matrix ***" << endl << endl;
+    cout << "*** 3033. Modify the Matrix ***" << endl << endl;
 
-  Solution s0;
+    Solution s0;
 
-  {
-    cout << "Test 1: ";
+    {
+        cout << "Test 1: ";
 
-    vector<vector<int>> matrix = {{1, 2, -1}, {4, -1, 6}, {7, 8, 9}};
-    vector<vector<int>> ans0 = s0.modifiedMatrix(matrix);
-    vector<vector<int>> exp0 = {{1, 2, 9}, {4, 8, 6}, {7, 8, 9}};
+        vector<vector<int>> matrix = {{1, 2, -1}, {4, -1, 6}, {7, 8, 9}};
+        vector<vector<int>> ans0 = s0.modifiedMatrix(matrix);
+        vector<vector<int>> exp0 = {{1, 2, 9}, {4, 8, 6}, {7, 8, 9}};
 
-    if (ans0 == exp0) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << endl;
-      for (vector<int>& row : ans0) {
-        for (int& i : row) {
-          cout << i << " ";
+        if (ans0 == exp0) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << endl;
+            for (vector<int>& row : ans0) {
+                for (int& i : row) {
+                    cout << i << " ";
+                }
+                cout << endl;
+            }
+            cout << "  Expect: " << endl;
+            for (vector<int>& row : exp0) {
+                for (int& i : row) {
+                    cout << i << " ";
+                }
+                cout << endl;
+            }
         }
-        cout << endl;
-      }
-      cout << "  Expect: " << endl;
-      for (vector<int>& row : exp0) {
-        for (int& i : row) {
-          cout << i << " ";
-        }
-        cout << endl;
-      }
     }
-  }
 
-  {
-    cout << "Test 2: ";
+    {
+        cout << "Test 2: ";
 
-    vector<vector<int>> matrix = {{3, -1}, {5, 2}};
-    vector<vector<int>> ans1 = s0.modifiedMatrix(matrix);
-    vector<vector<int>> exp1 = {{3, 2}, {5, 2}};
+        vector<vector<int>> matrix = {{3, -1}, {5, 2}};
+        vector<vector<int>> ans1 = s0.modifiedMatrix(matrix);
+        vector<vector<int>> exp1 = {{3, 2}, {5, 2}};
 
-    if (ans1 == exp1) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << endl;
-      for (vector<int>& row : ans1) {
-        for (int& i : row) {
-          cout << i << " ";
+        if (ans1 == exp1) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << endl;
+            for (vector<int>& row : ans1) {
+                for (int& i : row) {
+                    cout << i << " ";
+                }
+                cout << endl;
+            }
+            cout << "  Expect: " << endl;
+            for (vector<int>& row : exp1) {
+                for (int& i : row) {
+                    cout << i << " ";
+                }
+                cout << endl;
+            }
         }
-        cout << endl;
-      }
-      cout << "  Expect: " << endl;
-      for (vector<int>& row : exp1) {
-        for (int& i : row) {
-          cout << i << " ";
-        }
-        cout << endl;
-      }
     }
-  }
 
-  return 0;
+    return 0;
 }

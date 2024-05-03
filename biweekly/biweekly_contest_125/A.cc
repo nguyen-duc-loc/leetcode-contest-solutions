@@ -34,77 +34,78 @@
 using namespace std;
 
 class Solution {
- public:
-  int minOperations(vector<int>& nums, int k) {
-    sort(nums.begin(), nums.end());
-    int ans = 0;
-    for (int i = 0; i < (int)nums.size(); i++) {
-      if (nums[i] < k) {
-        ans++;
-      }
+   public:
+    int minOperations(vector<int>& nums, int k) {
+        sort(nums.begin(), nums.end());
+        int ans = 0;
+        for (int i = 0; i < (int)nums.size(); i++) {
+            if (nums[i] < k) {
+                ans++;
+            }
+        }
+        return ans;
     }
-    return ans;
-  }
 };
 
 // int Solution::minOperations(vector<int> nums, int k)
 
 int main() {
-  cout << "*** 3065. Minimum Operations to Exceed Threshold Value I ***" << endl
-       << endl;
+    cout << "*** 3065. Minimum Operations to Exceed Threshold Value I ***"
+         << endl
+         << endl;
 
-  Solution s0;
+    Solution s0;
 
-  {
-    cout << "Test 1: ";
+    {
+        cout << "Test 1: ";
 
-    vector<int> nums = {2, 11, 10, 1, 3};
-    int k = 10;
-    int ans0 = s0.minOperations(nums, k);
-    int exp0 = 3;
+        vector<int> nums = {2, 11, 10, 1, 3};
+        int k = 10;
+        int ans0 = s0.minOperations(nums, k);
+        int exp0 = 3;
 
-    if (ans0 == exp0) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << ans0 << endl;
-      cout << "  Expect: " << exp0 << endl;
+        if (ans0 == exp0) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << ans0 << endl;
+            cout << "  Expect: " << exp0 << endl;
+        }
     }
-  }
 
-  {
-    cout << "Test 2: ";
+    {
+        cout << "Test 2: ";
 
-    vector<int> nums = {1, 1, 2, 4, 9};
-    int k = 1;
-    int ans1 = s0.minOperations(nums, k);
-    int exp1 = 0;
+        vector<int> nums = {1, 1, 2, 4, 9};
+        int k = 1;
+        int ans1 = s0.minOperations(nums, k);
+        int exp1 = 0;
 
-    if (ans1 == exp1) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << ans1 << endl;
-      cout << "  Expect: " << exp1 << endl;
+        if (ans1 == exp1) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << ans1 << endl;
+            cout << "  Expect: " << exp1 << endl;
+        }
     }
-  }
 
-  {
-    cout << "Test 3: ";
+    {
+        cout << "Test 3: ";
 
-    vector<int> nums = {1, 1, 2, 4, 9};
-    int k = 9;
-    int ans2 = s0.minOperations(nums, k);
-    int exp2 = 4;
+        vector<int> nums = {1, 1, 2, 4, 9};
+        int k = 9;
+        int ans2 = s0.minOperations(nums, k);
+        int exp2 = 4;
 
-    if (ans2 == exp2) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << ans2 << endl;
-      cout << "  Expect: " << exp2 << endl;
+        if (ans2 == exp2) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << ans2 << endl;
+            cout << "  Expect: " << exp2 << endl;
+        }
     }
-  }
 
-  return 0;
+    return 0;
 }

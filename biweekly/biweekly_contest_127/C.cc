@@ -34,106 +34,106 @@
 using namespace std;
 
 class Solution {
- public:
-  vector<unordered_set<int>> v;
+   public:
+    vector<unordered_set<int>> v;
 
-  bool ok(int index, int k, int cur) {
-    for (int i = 0; i < 31; i++) {
-      if (v[i].count(index) && (int)v[i].size() == 1) {
-        cur -= (1 << i);
-      }
-    }
-    return cur >= k;
-  }
-
-  int minimumSubarrayLength(vector<int>& nums, int k) {
-    v.clear();
-    int ans = INT_MAX, cur = 0;
-    v.resize(31);
-    for (int l = 0, r = 0; r < (int)nums.size(); r++) {
-      for (int i = 0; i < 31; i++) {
-        if (nums[r] & (1 << i)) {
-          v[i].insert(r);
-        }
-      }
-      cur |= nums[r];
-      while (l < r && ok(l, k, cur)) {
+    bool ok(int index, int k, int cur) {
         for (int i = 0; i < 31; i++) {
-          if (v[i].count(l)) {
-            v[i].erase(l);
-            if (v[i].empty()) {
-              cur -= (1 << i);
+            if (v[i].count(index) && (int)v[i].size() == 1) {
+                cur -= (1 << i);
             }
-          }
         }
-        l++;
-      }
-      if (cur >= k) {
-        ans = min(ans, r - l + 1);
-      }
+        return cur >= k;
     }
-    return ans == INT_MAX ? -1 : ans;
-  }
+
+    int minimumSubarrayLength(vector<int>& nums, int k) {
+        v.clear();
+        int ans = INT_MAX, cur = 0;
+        v.resize(31);
+        for (int l = 0, r = 0; r < (int)nums.size(); r++) {
+            for (int i = 0; i < 31; i++) {
+                if (nums[r] & (1 << i)) {
+                    v[i].insert(r);
+                }
+            }
+            cur |= nums[r];
+            while (l < r && ok(l, k, cur)) {
+                for (int i = 0; i < 31; i++) {
+                    if (v[i].count(l)) {
+                        v[i].erase(l);
+                        if (v[i].empty()) {
+                            cur -= (1 << i);
+                        }
+                    }
+                }
+                l++;
+            }
+            if (cur >= k) {
+                ans = min(ans, r - l + 1);
+            }
+        }
+        return ans == INT_MAX ? -1 : ans;
+    }
 };
 
 // int Solution::minimumSubarrayLength(vector<int> nums, int k)
 
 int main() {
-  cout << "*** 3097. Shortest Subarray With OR at Least K II ***" << endl
-       << endl;
+    cout << "*** 3097. Shortest Subarray With OR at Least K II ***" << endl
+         << endl;
 
-  Solution s0;
+    Solution s0;
 
-  {
-    cout << "Test 1: ";
+    {
+        cout << "Test 1: ";
 
-    vector<int> nums = {1, 2, 3};
-    int k = 2;
-    int ans0 = s0.minimumSubarrayLength(nums, k);
-    int exp0 = 1;
+        vector<int> nums = {1, 2, 3};
+        int k = 2;
+        int ans0 = s0.minimumSubarrayLength(nums, k);
+        int exp0 = 1;
 
-    if (ans0 == exp0) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << ans0 << endl;
-      cout << "  Expect: " << exp0 << endl;
+        if (ans0 == exp0) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << ans0 << endl;
+            cout << "  Expect: " << exp0 << endl;
+        }
     }
-  }
 
-  {
-    cout << "Test 2: ";
+    {
+        cout << "Test 2: ";
 
-    vector<int> nums = {2, 1, 8};
-    int k = 10;
-    int ans1 = s0.minimumSubarrayLength(nums, k);
-    int exp1 = 3;
+        vector<int> nums = {2, 1, 8};
+        int k = 10;
+        int ans1 = s0.minimumSubarrayLength(nums, k);
+        int exp1 = 3;
 
-    if (ans1 == exp1) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << ans1 << endl;
-      cout << "  Expect: " << exp1 << endl;
+        if (ans1 == exp1) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << ans1 << endl;
+            cout << "  Expect: " << exp1 << endl;
+        }
     }
-  }
 
-  {
-    cout << "Test 3: ";
+    {
+        cout << "Test 3: ";
 
-    vector<int> nums = {1, 2};
-    int k = 0;
-    int ans2 = s0.minimumSubarrayLength(nums, k);
-    int exp2 = 1;
+        vector<int> nums = {1, 2};
+        int k = 0;
+        int ans2 = s0.minimumSubarrayLength(nums, k);
+        int exp2 = 1;
 
-    if (ans2 == exp2) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << ans2 << endl;
-      cout << "  Expect: " << exp2 << endl;
+        if (ans2 == exp2) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << ans2 << endl;
+            cout << "  Expect: " << exp2 << endl;
+        }
     }
-  }
 
-  return 0;
+    return 0;
 }

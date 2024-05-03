@@ -34,82 +34,82 @@
 using namespace std;
 
 class Solution {
- public:
-  vector<long long> mostFrequentIDs(vector<int>& nums, vector<int>& freq) {
-    unordered_map<int, long long> mp;
-    vector<long long> ans;
-    set<pair<long long, int>> st;
-    for (int i = 0; i < (int)nums.size(); i++) {
-      if (!mp.count(nums[i])) {
-        mp[nums[i]] = 1LL * freq[i];
-        st.insert({mp[nums[i]], nums[i]});
-      } else {
-        st.erase({mp[nums[i]], nums[i]});
-        mp[nums[i]] += 1LL * freq[i];
-        st.insert({mp[nums[i]], nums[i]});
-      }
-      auto it = --st.end();
-      ans.push_back(it->first);
+   public:
+    vector<long long> mostFrequentIDs(vector<int>& nums, vector<int>& freq) {
+        unordered_map<int, long long> mp;
+        vector<long long> ans;
+        set<pair<long long, int>> st;
+        for (int i = 0; i < (int)nums.size(); i++) {
+            if (!mp.count(nums[i])) {
+                mp[nums[i]] = 1LL * freq[i];
+                st.insert({mp[nums[i]], nums[i]});
+            } else {
+                st.erase({mp[nums[i]], nums[i]});
+                mp[nums[i]] += 1LL * freq[i];
+                st.insert({mp[nums[i]], nums[i]});
+            }
+            auto it = --st.end();
+            ans.push_back(it->first);
+        }
+        return ans;
     }
-    return ans;
-  }
 };
 
 // vector<long long> Solution::mostFrequentIDs(vector<int> nums, vector<int>
 // freq)
 
 int main() {
-  cout << "*** 3092. Most Frequent IDs ***" << endl << endl;
+    cout << "*** 3092. Most Frequent IDs ***" << endl << endl;
 
-  Solution s0;
+    Solution s0;
 
-  {
-    cout << "Test 1: ";
+    {
+        cout << "Test 1: ";
 
-    vector<int> nums = {2, 3, 2, 1};
-    vector<int> freq = {3, 2, -3, 1};
-    vector<long long> ans0 = s0.mostFrequentIDs(nums, freq);
-    vector<long long> exp0 = {3, 3, 2, 2};
+        vector<int> nums = {2, 3, 2, 1};
+        vector<int> freq = {3, 2, -3, 1};
+        vector<long long> ans0 = s0.mostFrequentIDs(nums, freq);
+        vector<long long> exp0 = {3, 3, 2, 2};
 
-    if (ans0 == exp0) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: ";
-      for (long long& i : ans0) {
-        cout << i << " ";
-      }
-      cout << endl << "  Expect: ";
-      for (long long& i : exp0) {
-        cout << i << " ";
-      }
-      cout << endl;
+        if (ans0 == exp0) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: ";
+            for (long long& i : ans0) {
+                cout << i << " ";
+            }
+            cout << endl << "  Expect: ";
+            for (long long& i : exp0) {
+                cout << i << " ";
+            }
+            cout << endl;
+        }
     }
-  }
 
-  {
-    cout << "Test 2: ";
+    {
+        cout << "Test 2: ";
 
-    vector<int> nums = {5, 5, 3};
-    vector<int> freq = {2, -2, 1};
-    vector<long long> ans1 = s0.mostFrequentIDs(nums, freq);
-    vector<long long> exp1 = {2, 0, 1};
+        vector<int> nums = {5, 5, 3};
+        vector<int> freq = {2, -2, 1};
+        vector<long long> ans1 = s0.mostFrequentIDs(nums, freq);
+        vector<long long> exp1 = {2, 0, 1};
 
-    if (ans1 == exp1) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: ";
-      for (long long& i : ans1) {
-        cout << i << " ";
-      }
-      cout << endl << "  Expect: ";
-      for (long long& i : exp1) {
-        cout << i << " ";
-      }
-      cout << endl;
+        if (ans1 == exp1) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: ";
+            for (long long& i : ans1) {
+                cout << i << " ";
+            }
+            cout << endl << "  Expect: ";
+            for (long long& i : exp1) {
+                cout << i << " ";
+            }
+            cout << endl;
+        }
     }
-  }
 
-  return 0;
+    return 0;
 }

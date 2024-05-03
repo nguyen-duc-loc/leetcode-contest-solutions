@@ -34,77 +34,78 @@
 using namespace std;
 
 class Solution {
- public:
-  string findLatestTime(string s) {
-    if (s[0] == '?') {
-      if (s[1] == '?') {
-        s[0] = '1';
-        s[1] = '1';
-      } else {
-        if (s[1] <= '1') {
-          s[0] = '1';
-        } else {
-          s[0] = '0';
+   public:
+    string findLatestTime(string s) {
+        if (s[0] == '?') {
+            if (s[1] == '?') {
+                s[0] = '1';
+                s[1] = '1';
+            } else {
+                if (s[1] <= '1') {
+                    s[0] = '1';
+                } else {
+                    s[0] = '0';
+                }
+            }
         }
-      }
+        if (s[1] == '?') {
+            if (s[0] == '0') {
+                s[1] = '9';
+            } else {
+                s[1] = '1';
+            }
+        }
+        if (s[3] == '?') {
+            s[3] = '5';
+        }
+        if (s[4] == '?') {
+            s[4] = '9';
+        }
+        return s;
     }
-    if (s[1] == '?') {
-      if (s[0] == '0') {
-        s[1] = '9';
-      } else {
-        s[1] = '1';
-      }
-    }
-    if (s[3] == '?') {
-      s[3] = '5';
-    }
-    if (s[4] == '?') {
-      s[4] = '9';
-    }
-    return s;
-  }
 };
 
 // string Solution::findLatestTime(string s)
 
 int main() {
-  cout << "*** 3114. Latest Time You Can Obtain After Replacing Characters ***"
-       << endl
-       << endl;
+    cout
+        << "*** 3114. Latest Time You Can Obtain After Replacing Characters ***"
+        << endl
+        << endl;
 
-  Solution s0;
+    Solution s0;
 
-  {
-    cout << "Test 1: ";
+    {
+        cout << "Test 1: ";
 
-    string s = "1?:?4";
-    string ans0 = s0.findLatestTime(s);
-    string exp0 = "11:54";
+        string s = "1?:?4";
+        string ans0 = s0.findLatestTime(s);
+        string exp0 = "11:54";
 
-    if (ans0 == exp0) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << ans0 << endl;
-      cout << "  Expect: " << exp0 << endl;
+        if (ans0 == exp0) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << ans0 << endl;
+            cout << "  Expect: " << exp0 << endl;
+        }
     }
-  }
 
-  {
-    cout << "Test 2: ";
+    {
+        cout << "Test 2: ";
 
-    string s = "0?:5?";
-    string ans1 = s0.findLatestTime(s);
-    string exp1 = "09:59";
+        string s = "0?:5?";
+        string ans1 = s0.findLatestTime(s);
+        string exp1 = "09:59";
 
-    if (ans1 == exp1) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << ans1 << endl;
-      cout << "  Expect: " << exp1 << endl;
+        if (ans1 == exp1) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << ans1 << endl;
+            cout << "  Expect: " << exp1 << endl;
+        }
     }
-  }
 
-  return 0;
+    return 0;
 }

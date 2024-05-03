@@ -34,129 +34,129 @@
 using namespace std;
 
 class Solution {
- public:
-  vector<int> minimumTime(int n, vector<vector<int>>& edges,
-                          vector<int>& disappear) {
-    vector<vector<pair<int, int>>> adj(n);
-    for (auto& e : edges) {
-      adj[e[0]].emplace_back(e[1], e[2]);
-      adj[e[1]].emplace_back(e[0], e[2]);
-    }
-    priority_queue<pair<int, int>, vector<pair<int, int>>,
-                   greater<pair<int, int>>>
-        pq;
-    pq.emplace(0, 0);
-    vector<bool> vis(n);
-    vector<int> ans(n, INT_MAX);
-    ans[0] = 0;
-    while (!pq.empty()) {
-      auto t = pq.top();
-      pq.pop();
-      int a = t.second;
-      if (vis[a]) {
-        continue;
-      }
-      vis[a] = 1;
-      for (auto& e : adj[a]) {
-        int u = e.first, w = e.second;
-        if (ans[a] + w < ans[u] && ans[a] + w < disappear[u]) {
-          ans[u] = ans[a] + w;
-          pq.push({ans[u], u});
+   public:
+    vector<int> minimumTime(int n, vector<vector<int>>& edges,
+                            vector<int>& disappear) {
+        vector<vector<pair<int, int>>> adj(n);
+        for (auto& e : edges) {
+            adj[e[0]].emplace_back(e[1], e[2]);
+            adj[e[1]].emplace_back(e[0], e[2]);
         }
-      }
+        priority_queue<pair<int, int>, vector<pair<int, int>>,
+                       greater<pair<int, int>>>
+            pq;
+        pq.emplace(0, 0);
+        vector<bool> vis(n);
+        vector<int> ans(n, INT_MAX);
+        ans[0] = 0;
+        while (!pq.empty()) {
+            auto t = pq.top();
+            pq.pop();
+            int a = t.second;
+            if (vis[a]) {
+                continue;
+            }
+            vis[a] = 1;
+            for (auto& e : adj[a]) {
+                int u = e.first, w = e.second;
+                if (ans[a] + w < ans[u] && ans[a] + w < disappear[u]) {
+                    ans[u] = ans[a] + w;
+                    pq.push({ans[u], u});
+                }
+            }
+        }
+        for (auto& e : ans) {
+            if (e == INT_MAX) {
+                e = -1;
+            }
+        }
+        return ans;
     }
-    for (auto& e : ans) {
-      if (e == INT_MAX) {
-        e = -1;
-      }
-    }
-    return ans;
-  }
 };
 
 // vector<int> Solution::minimumTime(int n, vector<vector<int>> edges,
 // vector<int> disappear)
 
 int main() {
-  cout << "*** 3112. Minimum Time to Visit Disappearing Nodes ***" << endl
-       << endl;
+    cout << "*** 3112. Minimum Time to Visit Disappearing Nodes ***" << endl
+         << endl;
 
-  Solution s0;
+    Solution s0;
 
-  {
-    cout << "Test 1: ";
+    {
+        cout << "Test 1: ";
 
-    int n = 3;
-    vector<vector<int>> edges = {{0, 1, 2}, {1, 2, 1}, {0, 2, 4}};
-    vector<int> disappear = {1, 1, 5};
-    vector<int> ans0 = s0.minimumTime(n, edges, disappear);
-    vector<int> exp0 = {0, -1, 4};
+        int n = 3;
+        vector<vector<int>> edges = {{0, 1, 2}, {1, 2, 1}, {0, 2, 4}};
+        vector<int> disappear = {1, 1, 5};
+        vector<int> ans0 = s0.minimumTime(n, edges, disappear);
+        vector<int> exp0 = {0, -1, 4};
 
-    if (ans0 == exp0) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: ";
-      for (int& i : ans0) {
-        cout << i << " ";
-      }
-      cout << endl << "  Expect: ";
-      for (int& i : exp0) {
-        cout << i << " ";
-      }
-      cout << endl;
+        if (ans0 == exp0) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: ";
+            for (int& i : ans0) {
+                cout << i << " ";
+            }
+            cout << endl << "  Expect: ";
+            for (int& i : exp0) {
+                cout << i << " ";
+            }
+            cout << endl;
+        }
     }
-  }
 
-  {
-    cout << "Test 2: ";
+    {
+        cout << "Test 2: ";
 
-    int n = 3;
-    vector<vector<int>> edges = {{0, 1, 2}, {1, 2, 1}, {0, 2, 4}};
-    vector<int> disappear = {1, 3, 5};
-    vector<int> ans1 = s0.minimumTime(n, edges, disappear);
-    vector<int> exp1 = {0, 2, 3};
+        int n = 3;
+        vector<vector<int>> edges = {{0, 1, 2}, {1, 2, 1}, {0, 2, 4}};
+        vector<int> disappear = {1, 3, 5};
+        vector<int> ans1 = s0.minimumTime(n, edges, disappear);
+        vector<int> exp1 = {0, 2, 3};
 
-    if (ans1 == exp1) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: ";
-      for (int& i : ans1) {
-        cout << i << " ";
-      }
-      cout << endl << "  Expect: ";
-      for (int& i : exp1) {
-        cout << i << " ";
-      }
-      cout << endl;
+        if (ans1 == exp1) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: ";
+            for (int& i : ans1) {
+                cout << i << " ";
+            }
+            cout << endl << "  Expect: ";
+            for (int& i : exp1) {
+                cout << i << " ";
+            }
+            cout << endl;
+        }
     }
-  }
 
-  {
-    cout << "Test 3: ";
+    {
+        cout << "Test 3: ";
 
-    int n = 2;
-    vector<vector<int>> edges = {{0, 1, 1}};
-    vector<int> disappear = {1, 1};
-    vector<int> ans2 = s0.minimumTime(n, edges, disappear);
-    vector<int> exp2 = {0, -1};
+        int n = 2;
+        vector<vector<int>> edges = {{0, 1, 1}};
+        vector<int> disappear = {1, 1};
+        vector<int> ans2 = s0.minimumTime(n, edges, disappear);
+        vector<int> exp2 = {0, -1};
 
-    if (ans2 == exp2) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: ";
-      for (int& i : ans2) {
-        cout << i << " ";
-      }
-      cout << endl << "  Expect: ";
-      for (int& i : exp2) {
-        cout << i << " ";
-      }
-      cout << endl;
+        if (ans2 == exp2) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: ";
+            for (int& i : ans2) {
+                cout << i << " ";
+            }
+            cout << endl << "  Expect: ";
+            for (int& i : exp2) {
+                cout << i << " ";
+            }
+            cout << endl;
+        }
     }
-  }
 
-  return 0;
+    return 0;
 }

@@ -34,105 +34,105 @@
 using namespace std;
 
 class Solution {
- public:
-  bool ok(vector<vector<char>>& grid) {
-    for (int i = 0; i < 2; i++) {
-      for (int j = 0; j < 2; j++) {
-        bool ok = 1;
-        auto c = grid[i][j];
-        if (grid[i + 1][j] != c || grid[i][j + 1] != c ||
-            grid[i + 1][j + 1] != c) {
-          ok = 0;
+   public:
+    bool ok(vector<vector<char>>& grid) {
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < 2; j++) {
+                bool ok = 1;
+                auto c = grid[i][j];
+                if (grid[i + 1][j] != c || grid[i][j + 1] != c ||
+                    grid[i + 1][j + 1] != c) {
+                    ok = 0;
+                }
+                if (ok)
+                    return true;
+            }
         }
-        if (ok)
-          return true;
-      }
+        return false;
     }
-    return false;
-  }
 
-  bool canMakeSquare(vector<vector<char>>& grid) {
-    for (int i = 0; i < 3; i++) {
-      for (int j = 0; j < 3; j++) {
-        if (ok(grid)) {
-          return true;
+    bool canMakeSquare(vector<vector<char>>& grid) {
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (ok(grid)) {
+                    return true;
+                }
+                if (grid[i][j] == 'B') {
+                    grid[i][j] = 'W';
+                    if (ok(grid)) {
+                        return true;
+                    }
+                    grid[i][j] = 'B';
+                } else {
+                    grid[i][j] = 'B';
+                    if (ok(grid)) {
+                        return true;
+                    }
+                    grid[i][j] = 'W';
+                }
+            }
         }
-        if (grid[i][j] == 'B') {
-          grid[i][j] = 'W';
-          if (ok(grid)) {
-            return true;
-          }
-          grid[i][j] = 'B';
-        } else {
-          grid[i][j] = 'B';
-          if (ok(grid)) {
-            return true;
-          }
-          grid[i][j] = 'W';
-        }
-      }
+        return false;
     }
-    return false;
-  }
 };
 
 // bool Solution::canMakeSquare(vector<vector<char>> grid)
 
 int main() {
-  cout << "*** 3127. Make a Square with the Same Color ***" << endl << endl;
+    cout << "*** 3127. Make a Square with the Same Color ***" << endl << endl;
 
-  Solution s0;
+    Solution s0;
 
-  {
-    cout << "Test 1: ";
+    {
+        cout << "Test 1: ";
 
-    vector<vector<char>> grid = {
-        {'B', 'W', 'B'}, {'B', 'W', 'W'}, {'B', 'W', 'B'}};
-    bool ans0 = s0.canMakeSquare(grid);
-    bool exp0 = true;
+        vector<vector<char>> grid = {
+            {'B', 'W', 'B'}, {'B', 'W', 'W'}, {'B', 'W', 'B'}};
+        bool ans0 = s0.canMakeSquare(grid);
+        bool exp0 = true;
 
-    if (ans0 == exp0) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << ans0 << endl;
-      cout << "  Expect: " << exp0 << endl;
+        if (ans0 == exp0) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << ans0 << endl;
+            cout << "  Expect: " << exp0 << endl;
+        }
     }
-  }
 
-  {
-    cout << "Test 2: ";
+    {
+        cout << "Test 2: ";
 
-    vector<vector<char>> grid = {
-        {'B', 'W', 'B'}, {'W', 'B', 'W'}, {'B', 'W', 'B'}};
-    bool ans1 = s0.canMakeSquare(grid);
-    bool exp1 = false;
+        vector<vector<char>> grid = {
+            {'B', 'W', 'B'}, {'W', 'B', 'W'}, {'B', 'W', 'B'}};
+        bool ans1 = s0.canMakeSquare(grid);
+        bool exp1 = false;
 
-    if (ans1 == exp1) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << ans1 << endl;
-      cout << "  Expect: " << exp1 << endl;
+        if (ans1 == exp1) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << ans1 << endl;
+            cout << "  Expect: " << exp1 << endl;
+        }
     }
-  }
 
-  {
-    cout << "Test 3: ";
+    {
+        cout << "Test 3: ";
 
-    vector<vector<char>> grid = {
-        {'B', 'W', 'B'}, {'B', 'W', 'W'}, {'B', 'W', 'W'}};
-    bool ans2 = s0.canMakeSquare(grid);
-    bool exp2 = true;
+        vector<vector<char>> grid = {
+            {'B', 'W', 'B'}, {'B', 'W', 'W'}, {'B', 'W', 'W'}};
+        bool ans2 = s0.canMakeSquare(grid);
+        bool exp2 = true;
 
-    if (ans2 == exp2) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << ans2 << endl;
-      cout << "  Expect: " << exp2 << endl;
+        if (ans2 == exp2) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << ans2 << endl;
+            cout << "  Expect: " << exp2 << endl;
+        }
     }
-  }
 
-  return 0;
+    return 0;
 }

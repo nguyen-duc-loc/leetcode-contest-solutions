@@ -34,54 +34,54 @@
 using namespace std;
 
 class Solution {
- public:
-  int scoreOfString(string s) {
-    int ans = 0;
-    for (int i = 1; i < (int)s.size(); i++) {
-      ans += abs(s[i] - s[i - 1]);
+   public:
+    int scoreOfString(string s) {
+        int ans = 0;
+        for (int i = 1; i < (int)s.size(); i++) {
+            ans += abs(s[i] - s[i - 1]);
+        }
+        return ans;
     }
-    return ans;
-  }
 };
 
 // int Solution::scoreOfString(string s)
 
 int main() {
-  cout << "*** 3110. Score of a String ***" << endl << endl;
+    cout << "*** 3110. Score of a String ***" << endl << endl;
 
-  Solution s0;
+    Solution s0;
 
-  {
-    cout << "Test 1: ";
+    {
+        cout << "Test 1: ";
 
-    string s = "hello";
-    int ans0 = s0.scoreOfString(s);
-    int exp0 = 13;
+        string s = "hello";
+        int ans0 = s0.scoreOfString(s);
+        int exp0 = 13;
 
-    if (ans0 == exp0) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << ans0 << endl;
-      cout << "  Expect: " << exp0 << endl;
+        if (ans0 == exp0) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << ans0 << endl;
+            cout << "  Expect: " << exp0 << endl;
+        }
     }
-  }
 
-  {
-    cout << "Test 2: ";
+    {
+        cout << "Test 2: ";
 
-    string s = "zaz";
-    int ans1 = s0.scoreOfString(s);
-    int exp1 = 50;
+        string s = "zaz";
+        int ans1 = s0.scoreOfString(s);
+        int exp1 = 50;
 
-    if (ans1 == exp1) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << ans1 << endl;
-      cout << "  Expect: " << exp1 << endl;
+        if (ans1 == exp1) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << ans1 << endl;
+            cout << "  Expect: " << exp1 << endl;
+        }
     }
-  }
 
-  return 0;
+    return 0;
 }

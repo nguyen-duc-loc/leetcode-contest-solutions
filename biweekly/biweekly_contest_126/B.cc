@@ -34,91 +34,91 @@
 using namespace std;
 
 class Solution {
- public:
-  vector<long long> unmarkedSumArray(vector<int>& nums,
-                                     vector<vector<int>>& queries) {
-    long long s = 0;
-    for (auto& e : nums) {
-      s += 1LL * e;
+   public:
+    vector<long long> unmarkedSumArray(vector<int>& nums,
+                                       vector<vector<int>>& queries) {
+        long long s = 0;
+        for (auto& e : nums) {
+            s += 1LL * e;
+        }
+        set<pair<int, int>> st;
+        for (int i = 0; i < (int)nums.size(); i++) {
+            st.insert({nums[i], i});
+        }
+        vector<long long> ans;
+        for (auto& e : queries) {
+            int index = e[0], k = e[1];
+            if (st.count({nums[index], index})) {
+                s -= 1LL * nums[index];
+            }
+            st.erase({nums[index], index});
+            while (k-- && !st.empty()) {
+                auto it = st.begin();
+                s -= 1LL * it->first;
+                st.erase(it);
+            }
+            ans.push_back(s);
+        }
+        return ans;
     }
-    set<pair<int, int>> st;
-    for (int i = 0; i < (int)nums.size(); i++) {
-      st.insert({nums[i], i});
-    }
-    vector<long long> ans;
-    for (auto& e : queries) {
-      int index = e[0], k = e[1];
-      if (st.count({nums[index], index})) {
-        s -= 1LL * nums[index];
-      }
-      st.erase({nums[index], index});
-      while (k-- && !st.empty()) {
-        auto it = st.begin();
-        s -= 1LL * it->first;
-        st.erase(it);
-      }
-      ans.push_back(s);
-    }
-    return ans;
-  }
 };
 
 // vector<long long> Solution::unmarkedSumArray(vector<int> nums,
 // vector<vector<int>> queries)
 
 int main() {
-  cout << "*** 3080. Mark Elements on Array by Performing Queries ***" << endl
-       << endl;
+    cout << "*** 3080. Mark Elements on Array by Performing Queries ***" << endl
+         << endl;
 
-  Solution s0;
+    Solution s0;
 
-  {
-    cout << "Test 1: ";
+    {
+        cout << "Test 1: ";
 
-    vector<int> nums = {1, 2, 2, 1, 2, 3, 1};
-    vector<vector<int>> queries = {{1, 2}, {3, 3}, {4, 2}};
-    vector<long long> ans0 = s0.unmarkedSumArray(nums, queries);
-    vector<long long> exp0 = {8, 3, 0};
+        vector<int> nums = {1, 2, 2, 1, 2, 3, 1};
+        vector<vector<int>> queries = {{1, 2}, {3, 3}, {4, 2}};
+        vector<long long> ans0 = s0.unmarkedSumArray(nums, queries);
+        vector<long long> exp0 = {8, 3, 0};
 
-    if (ans0 == exp0) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: ";
-      for (long long& i : ans0) {
-        cout << i << " ";
-      }
-      cout << endl << "  Expect: ";
-      for (long long& i : exp0) {
-        cout << i << " ";
-      }
-      cout << endl;
+        if (ans0 == exp0) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: ";
+            for (long long& i : ans0) {
+                cout << i << " ";
+            }
+            cout << endl << "  Expect: ";
+            for (long long& i : exp0) {
+                cout << i << " ";
+            }
+            cout << endl;
+        }
     }
-  }
 
-  {
-    cout << "Test 2: ";
+    {
+        cout << "Test 2: ";
 
-    vector<int> nums = {1, 4, 2, 3};
-    vector<vector<int>> queries = {{0, 1}};
-    vector<long long> ans1 = s0.unmarkedSumArray(nums, queries);
-    vector<long long> exp1 = {7};
+        vector<int> nums = {1, 4, 2, 3};
+        vector<vector<int>> queries = {{0, 1}};
+        vector<long long> ans1 = s0.unmarkedSumArray(nums, queries);
+        vector<long long> exp1 = {7};
 
-    if (ans1 == exp1) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: ";
-      for (long long& i : ans1) {
-        cout << i << " ";
-      }
-      cout << endl << "  Expect: ";
-      for (long long& i : exp1) {
-        cout << i << " ";
-      }
-      cout << endl;
+        if (ans1 == exp1) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: ";
+            for (long long& i : ans1) {
+                cout << i << " ";
+            }
+            cout << endl << "  Expect: ";
+            for (long long& i : exp1) {
+                cout << i << " ";
+            }
+            cout << endl;
+        }
     }
-  }
 
-  return 0;
+    return 0;
 }

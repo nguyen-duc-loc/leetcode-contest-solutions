@@ -34,127 +34,127 @@
 using namespace std;
 
 struct Node {
-  char c;
-  unordered_map<char, Node*> mp;
-  int index, len;
+    char c;
+    unordered_map<char, Node*> mp;
+    int index, len;
 
-  Node(char _c, int _index, int _len) {
-    c = _c;
-    index = _index;
-    len = _len;
-  }
+    Node(char _c, int _index, int _len) {
+        c = _c;
+        index = _index;
+        len = _len;
+    }
 };
 
 class Solution {
- public:
-  Node* root;
+   public:
+    Node* root;
 
-  void insert(string s, int index) {
-    Node* t = root;
-    int n = (int)s.size();
-    if (t->len > n) {
-      t->len = n;
-      t->index = index;
+    void insert(string s, int index) {
+        Node* t = root;
+        int n = (int)s.size();
+        if (t->len > n) {
+            t->len = n;
+            t->index = index;
+        }
+        for (int i = n - 1; i >= 0; i--) {
+            char c = s[i];
+            if (!t->mp.count(c)) {
+                Node* node = new Node(c, index, n);
+                t->mp[c] = node;
+            }
+            Node* node = t->mp[c];
+            if (node->len > n) {
+                node->len = n;
+                node->index = index;
+            }
+            t = t->mp[c];
+        }
     }
-    for (int i = n - 1; i >= 0; i--) {
-      char c = s[i];
-      if (!t->mp.count(c)) {
-        Node* node = new Node(c, index, n);
-        t->mp[c] = node;
-      }
-      Node* node = t->mp[c];
-      if (node->len > n) {
-        node->len = n;
-        node->index = index;
-      }
-      t = t->mp[c];
-    }
-  }
 
-  int search(string s) {
-    Node* t = root;
-    int ans = t->index;
-    for (int i = (int)s.size() - 1; i >= 0; i--) {
-      char c = s[i];
-      if (t->mp.count(c)) {
-        ans = t->mp[c]->index;
-        t = t->mp[c];
-      } else {
-        break;
-      }
+    int search(string s) {
+        Node* t = root;
+        int ans = t->index;
+        for (int i = (int)s.size() - 1; i >= 0; i--) {
+            char c = s[i];
+            if (t->mp.count(c)) {
+                ans = t->mp[c]->index;
+                t = t->mp[c];
+            } else {
+                break;
+            }
+        }
+        return ans;
     }
-    return ans;
-  }
 
-  vector<int> stringIndices(vector<string>& wordsContainer,
-                            vector<string>& wordsQuery) {
-    root = new Node('\0', 10000, 100005);
-    for (int i = 0; i < (int)wordsContainer.size(); i++) {
-      insert(wordsContainer[i], i);
+    vector<int> stringIndices(vector<string>& wordsContainer,
+                              vector<string>& wordsQuery) {
+        root = new Node('\0', 10000, 100005);
+        for (int i = 0; i < (int)wordsContainer.size(); i++) {
+            insert(wordsContainer[i], i);
+        }
+        vector<int> ans;
+        for (auto& e : wordsQuery) {
+            ans.push_back(search(e));
+        }
+        return ans;
     }
-    vector<int> ans;
-    for (auto& e : wordsQuery) {
-      ans.push_back(search(e));
-    }
-    return ans;
-  }
 };
 
 // vector<int> Solution::stringIndices(vector<string> wordsContainer,
 // vector<string> wordsQuery)
 
 int main() {
-  cout << "*** 3093. Longest Common Suffix Queries ***" << endl << endl;
+    cout << "*** 3093. Longest Common Suffix Queries ***" << endl << endl;
 
-  Solution s0;
+    Solution s0;
 
-  {
-    cout << "Test 1: ";
+    {
+        cout << "Test 1: ";
 
-    vector<string> wordsContainer = {"abcd", "bcd", "xbcd"};
-    vector<string> wordsQuery = {"cd", "bcd", "xyz"};
-    vector<int> ans0 = s0.stringIndices(wordsContainer, wordsQuery);
-    vector<int> exp0 = {1, 1, 1};
+        vector<string> wordsContainer = {"abcd", "bcd", "xbcd"};
+        vector<string> wordsQuery = {"cd", "bcd", "xyz"};
+        vector<int> ans0 = s0.stringIndices(wordsContainer, wordsQuery);
+        vector<int> exp0 = {1, 1, 1};
 
-    if (ans0 == exp0) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: ";
-      for (int& i : ans0) {
-        cout << i << " ";
-      }
-      cout << endl << "  Expect: ";
-      for (int& i : exp0) {
-        cout << i << " ";
-      }
-      cout << endl;
+        if (ans0 == exp0) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: ";
+            for (int& i : ans0) {
+                cout << i << " ";
+            }
+            cout << endl << "  Expect: ";
+            for (int& i : exp0) {
+                cout << i << " ";
+            }
+            cout << endl;
+        }
     }
-  }
 
-  {
-    cout << "Test 2: ";
+    {
+        cout << "Test 2: ";
 
-    vector<string> wordsContainer = {"abcdefgh", "poiuygh", "ghghgh"};
-    vector<string> wordsQuery = {"gh", "acbfgh", "acbfegh"};
-    vector<int> ans1 = s0.stringIndices(wordsContainer, wordsQuery);
-    vector<int> exp1 = {2, 0, 2};
+        vector<string> wordsContainer = {"abcdefgh", "poiuygh", "ghghgh"};
+        vector<string> wordsQuery = {"gh", "acbfgh", "acbfegh"};
+        vector<int> ans1 = s0.stringIndices(wordsContainer, wordsQuery);
+        vector<int> exp1 = {2, 0, 2};
 
-    if (ans1 == exp1) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: ";
-      for (int& i : ans1) {
-        cout << i << " ";
-      }
-      cout << endl << "  Expect: ";
-      for (int& i : exp1) {
-        cout << i << " ";
-      }
-      cout << endl;
+        if (ans1 == exp1) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: ";
+            for (int& i : ans1) {
+                cout << i << " ";
+            }
+            cout << endl << "  Expect: ";
+            for (int& i : exp1) {
+                cout << i << " ";
+            }
+            cout << endl;
+        }
     }
-  }
 
-  return 0;
+    return 0;
 }

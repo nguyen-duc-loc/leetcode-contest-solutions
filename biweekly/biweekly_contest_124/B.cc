@@ -34,74 +34,75 @@
 using namespace std;
 
 class Solution {
- public:
-  string lastNonEmptyString(string s) {
-    vector<int> idx(26);
-    vector<int> v(26);
-    for (auto& e : s) {
-      v[e - 'a']++;
+   public:
+    string lastNonEmptyString(string s) {
+        vector<int> idx(26);
+        vector<int> v(26);
+        for (auto& e : s) {
+            v[e - 'a']++;
+        }
+        int mx = *max_element(v.begin(), v.end());
+        vector<int> v2;
+        for (int i = 0; i < 26; i++) {
+            if (v[i] == mx) {
+                v2.push_back(i);
+            }
+        }
+        for (int i = 0; i < (int)s.size(); i++) {
+            idx[s[i] - 'a'] = i;
+        }
+        vector<pair<int, int>> v3;
+        for (auto& e : v2) {
+            v3.emplace_back(idx[e], e);
+        }
+        sort(v3.begin(), v3.end());
+        string ans;
+        for (auto& e : v3) {
+            ans.push_back(char(e.second + 'a'));
+        }
+        return ans;
     }
-    int mx = *max_element(v.begin(), v.end());
-    vector<int> v2;
-    for (int i = 0; i < 26; i++) {
-      if (v[i] == mx) {
-        v2.push_back(i);
-      }
-    }
-    for (int i = 0; i < (int)s.size(); i++) {
-      idx[s[i] - 'a'] = i;
-    }
-    vector<pair<int, int>> v3;
-    for (auto& e : v2) {
-      v3.emplace_back(idx[e], e);
-    }
-    sort(v3.begin(), v3.end());
-    string ans;
-    for (auto& e : v3) {
-      ans.push_back(char(e.second + 'a'));
-    }
-    return ans;
-  }
 };
 
 // string Solution::lastNonEmptyString(string s)
 
 int main() {
-  cout << "*** 3039. Apply Operations to Make String Empty ***" << endl << endl;
+    cout << "*** 3039. Apply Operations to Make String Empty ***" << endl
+         << endl;
 
-  Solution s0;
+    Solution s0;
 
-  {
-    cout << "Test 1: ";
+    {
+        cout << "Test 1: ";
 
-    string s = "aabcbbca";
-    string ans0 = s0.lastNonEmptyString(s);
-    string exp0 = "ba";
+        string s = "aabcbbca";
+        string ans0 = s0.lastNonEmptyString(s);
+        string exp0 = "ba";
 
-    if (ans0 == exp0) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << ans0 << endl;
-      cout << "  Expect: " << exp0 << endl;
+        if (ans0 == exp0) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << ans0 << endl;
+            cout << "  Expect: " << exp0 << endl;
+        }
     }
-  }
 
-  {
-    cout << "Test 2: ";
+    {
+        cout << "Test 2: ";
 
-    string s = "abcd";
-    string ans1 = s0.lastNonEmptyString(s);
-    string exp1 = "abcd";
+        string s = "abcd";
+        string ans1 = s0.lastNonEmptyString(s);
+        string exp1 = "abcd";
 
-    if (ans1 == exp1) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << ans1 << endl;
-      cout << "  Expect: " << exp1 << endl;
+        if (ans1 == exp1) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << ans1 << endl;
+            cout << "  Expect: " << exp1 << endl;
+        }
     }
-  }
 
-  return 0;
+    return 0;
 }

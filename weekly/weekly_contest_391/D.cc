@@ -34,71 +34,71 @@
 using namespace std;
 
 class Solution {
- public:
-  int minimumDistance(vector<vector<int>>& points) {
-    map<int, int> mp1;
-    map<int, int> mp2;
-    for (auto& e : points) {
-      mp1[e[0] + e[1]]++;
-      mp2[e[0] - e[1]]++;
+   public:
+    int minimumDistance(vector<vector<int>>& points) {
+        map<int, int> mp1;
+        map<int, int> mp2;
+        for (auto& e : points) {
+            mp1[e[0] + e[1]]++;
+            mp2[e[0] - e[1]]++;
+        }
+        int ans = INT_MAX;
+        for (auto& e : points) {
+            int s1 = e[0] + e[1];
+            int s2 = e[0] - e[1];
+            if (!(--mp1[s1])) {
+                mp1.erase(s1);
+            }
+            if (!(--mp2[s2])) {
+                mp2.erase(s2);
+            }
+            ans = min(ans, max(mp1.rbegin()->first - mp1.begin()->first,
+                               mp2.rbegin()->first - mp2.begin()->first));
+            mp1[s1]++;
+            mp2[s2]++;
+        }
+        return ans;
     }
-    int ans = INT_MAX;
-    for (auto& e : points) {
-      int s1 = e[0] + e[1];
-      int s2 = e[0] - e[1];
-      if (!(--mp1[s1])) {
-        mp1.erase(s1);
-      }
-      if (!(--mp2[s2])) {
-        mp2.erase(s2);
-      }
-      ans = min(ans, max(mp1.rbegin()->first - mp1.begin()->first,
-                         mp2.rbegin()->first - mp2.begin()->first));
-      mp1[s1]++;
-      mp2[s2]++;
-    }
-    return ans;
-  }
 };
 
 // int Solution::minimumDistance(vector<vector<int>> points)
 
 int main() {
-  cout << "*** 3102. Minimize Manhattan Distances ***" << endl << endl;
+    cout << "*** 3102. Minimize Manhattan Distances ***" << endl << endl;
 
-  Solution s0;
+    Solution s0;
 
-  {
-    cout << "Test 1: ";
+    {
+        cout << "Test 1: ";
 
-    vector<vector<int>> points = {{3, 10}, {5, 15}, {10, 2}, {4, 4}};
-    int ans0 = s0.minimumDistance(points);
-    int exp0 = 12;
+        vector<vector<int>> points = {{3, 10}, {5, 15}, {10, 2}, {4, 4}};
+        int ans0 = s0.minimumDistance(points);
+        int exp0 = 12;
 
-    if (ans0 == exp0) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << ans0 << endl;
-      cout << "  Expect: " << exp0 << endl;
+        if (ans0 == exp0) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << ans0 << endl;
+            cout << "  Expect: " << exp0 << endl;
+        }
     }
-  }
 
-  {
-    cout << "Test 2: ";
+    {
+        cout << "Test 2: ";
 
-    vector<vector<int>> points = {{1, 1}, {1, 1}, {1, 1}};
-    int ans1 = s0.minimumDistance(points);
-    int exp1 = 0;
+        vector<vector<int>> points = {{1, 1}, {1, 1}, {1, 1}};
+        int ans1 = s0.minimumDistance(points);
+        int exp1 = 0;
 
-    if (ans1 == exp1) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << ans1 << endl;
-      cout << "  Expect: " << exp1 << endl;
+        if (ans1 == exp1) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << ans1 << endl;
+            cout << "  Expect: " << exp1 << endl;
+        }
     }
-  }
 
-  return 0;
+    return 0;
 }

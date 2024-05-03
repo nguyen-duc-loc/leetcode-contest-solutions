@@ -34,75 +34,75 @@
 using namespace std;
 
 class Solution {
- public:
-  int minimumArrayLength(vector<int>& nums) {
-    int m = *min_element(nums.begin(), nums.end());
-    int cnt = 0;
-    for (auto& e : nums) {
-      if (e == m)
-        cnt++;
-      else if (e % m)
-        return 1;
+   public:
+    int minimumArrayLength(vector<int>& nums) {
+        int m = *min_element(nums.begin(), nums.end());
+        int cnt = 0;
+        for (auto& e : nums) {
+            if (e == m)
+                cnt++;
+            else if (e % m)
+                return 1;
+        }
+        return (cnt + 1) / 2;
     }
-    return (cnt + 1) / 2;
-  }
 };
 
 // int Solution::minimumArrayLength(vector<int> nums)
 
 int main() {
-  cout << "*** 3012. Minimize Length of Array Using Operations ***" << endl
-       << endl;
+    cout << "*** 3012. Minimize Length of Array Using Operations ***" << endl
+         << endl;
 
-  Solution s0;
+    Solution s0;
 
-  {
-    cout << "Test 1: ";
+    {
+        cout << "Test 1: ";
 
-    vector<int> nums = {1, 4, 3, 1};
-    int ans0 = s0.minimumArrayLength(nums);
-    int exp0 = 1;
+        vector<int> nums = {1, 4, 3, 1};
+        int ans0 = s0.minimumArrayLength(nums);
+        int exp0 = 1;
 
-    if (ans0 == exp0) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << ans0 << endl;
-      cout << "  Expect: " << exp0 << endl;
+        if (ans0 == exp0) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << ans0 << endl;
+            cout << "  Expect: " << exp0 << endl;
+        }
     }
-  }
 
-  {
-    cout << "Test 2: ";
+    {
+        cout << "Test 2: ";
 
-    vector<int> nums = {5, 5, 5, 10, 5};
-    int ans1 = s0.minimumArrayLength(nums);
-    int exp1 = 2;
+        vector<int> nums = {5, 5, 5, 10, 5};
+        int ans1 = s0.minimumArrayLength(nums);
+        int exp1 = 2;
 
-    if (ans1 == exp1) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << ans1 << endl;
-      cout << "  Expect: " << exp1 << endl;
+        if (ans1 == exp1) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << ans1 << endl;
+            cout << "  Expect: " << exp1 << endl;
+        }
     }
-  }
 
-  {
-    cout << "Test 3: ";
+    {
+        cout << "Test 3: ";
 
-    vector<int> nums = {2, 3, 4};
-    int ans2 = s0.minimumArrayLength(nums);
-    int exp2 = 1;
+        vector<int> nums = {2, 3, 4};
+        int ans2 = s0.minimumArrayLength(nums);
+        int exp2 = 1;
 
-    if (ans2 == exp2) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << ans2 << endl;
-      cout << "  Expect: " << exp2 << endl;
+        if (ans2 == exp2) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << ans2 << endl;
+            cout << "  Expect: " << exp2 << endl;
+        }
     }
-  }
 
-  return 0;
+    return 0;
 }

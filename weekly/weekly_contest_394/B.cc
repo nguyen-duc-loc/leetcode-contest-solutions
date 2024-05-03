@@ -34,85 +34,85 @@
 using namespace std;
 
 class Solution {
- public:
-  int numberOfSpecialChars(string word) {
-    map<char, int> mp;
-    int ans = 0;
-    for (int i = 0; i < (int)word.size(); i++) {
-      char c = word[i];
-      if (c >= 'A' && c <= 'Z') {
-        if (!mp.count(c)) {
-          mp[c] = i;
+   public:
+    int numberOfSpecialChars(string word) {
+        map<char, int> mp;
+        int ans = 0;
+        for (int i = 0; i < (int)word.size(); i++) {
+            char c = word[i];
+            if (c >= 'A' && c <= 'Z') {
+                if (!mp.count(c)) {
+                    mp[c] = i;
+                }
+            } else {
+                mp[c] = i;
+            }
         }
-      } else {
-        mp[c] = i;
-      }
+        for (int i = 0; i < 26; i++) {
+            if (mp.count(char(i + 'a')) && mp.count(char(i + 'A')) &&
+                mp[char(i + 'a')] < mp[char(i + 'A')]) {
+                ans++;
+            }
+        }
+        return ans;
     }
-    for (int i = 0; i < 26; i++) {
-      if (mp.count(char(i + 'a')) && mp.count(char(i + 'A')) &&
-          mp[char(i + 'a')] < mp[char(i + 'A')]) {
-        ans++;
-      }
-    }
-    return ans;
-  }
 };
 
 // int Solution::numberOfSpecialChars(string word)
 
 int main() {
-  cout << "*** 3121. Count the Number of Special Characters II ***" << endl
-       << endl;
+    cout << "*** 3121. Count the Number of Special Characters II ***" << endl
+         << endl;
 
-  Solution s0;
+    Solution s0;
 
-  {
-    cout << "Test 1: ";
+    {
+        cout << "Test 1: ";
 
-    string word = "aaAbcBC";
-    int ans0 = s0.numberOfSpecialChars(word);
-    int exp0 = 3;
+        string word = "aaAbcBC";
+        int ans0 = s0.numberOfSpecialChars(word);
+        int exp0 = 3;
 
-    if (ans0 == exp0) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << ans0 << endl;
-      cout << "  Expect: " << exp0 << endl;
+        if (ans0 == exp0) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << ans0 << endl;
+            cout << "  Expect: " << exp0 << endl;
+        }
     }
-  }
 
-  {
-    cout << "Test 2: ";
+    {
+        cout << "Test 2: ";
 
-    string word = "abc";
-    int ans1 = s0.numberOfSpecialChars(word);
-    int exp1 = 0;
+        string word = "abc";
+        int ans1 = s0.numberOfSpecialChars(word);
+        int exp1 = 0;
 
-    if (ans1 == exp1) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << ans1 << endl;
-      cout << "  Expect: " << exp1 << endl;
+        if (ans1 == exp1) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << ans1 << endl;
+            cout << "  Expect: " << exp1 << endl;
+        }
     }
-  }
 
-  {
-    cout << "Test 3: ";
+    {
+        cout << "Test 3: ";
 
-    string word = "AbBCab";
-    int ans2 = s0.numberOfSpecialChars(word);
-    int exp2 = 0;
+        string word = "AbBCab";
+        int ans2 = s0.numberOfSpecialChars(word);
+        int exp2 = 0;
 
-    if (ans2 == exp2) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << ans2 << endl;
-      cout << "  Expect: " << exp2 << endl;
+        if (ans2 == exp2) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << ans2 << endl;
+            cout << "  Expect: " << exp2 << endl;
+        }
     }
-  }
 
-  return 0;
+    return 0;
 }

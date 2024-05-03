@@ -34,70 +34,70 @@
 using namespace std;
 
 class Solution {
- public:
-  int distributeCandies(int n, int limit) {
-    vector<vector<int>> dp(4, vector<int>(n + 1));
-    vector<vector<int>> pref(4, vector<int>(n + 1));
-    dp[0][0] = 1;
-    for (int i = 0; i <= n; i++) {
-      pref[0][i] = 1;
-    }
-    for (int i = 1; i <= 3; i++) {
-      for (int j = 0; j <= min(n, i * limit); j++) {
-        dp[i][j] += pref[i - 1][j];
-        if (j - limit > 0) {
-          dp[i][j] -= pref[i - 1][j - limit - 1];
+   public:
+    int distributeCandies(int n, int limit) {
+        vector<vector<int>> dp(4, vector<int>(n + 1));
+        vector<vector<int>> pref(4, vector<int>(n + 1));
+        dp[0][0] = 1;
+        for (int i = 0; i <= n; i++) {
+            pref[0][i] = 1;
         }
-      }
-      pref[i][0] = dp[i][0];
-      for (int j = 1; j <= n; j++) {
-        pref[i][j] = pref[i][j - 1] + dp[i][j];
-      }
+        for (int i = 1; i <= 3; i++) {
+            for (int j = 0; j <= min(n, i * limit); j++) {
+                dp[i][j] += pref[i - 1][j];
+                if (j - limit > 0) {
+                    dp[i][j] -= pref[i - 1][j - limit - 1];
+                }
+            }
+            pref[i][0] = dp[i][0];
+            for (int j = 1; j <= n; j++) {
+                pref[i][j] = pref[i][j - 1] + dp[i][j];
+            }
+        }
+        return dp[3][n];
     }
-    return dp[3][n];
-  }
 };
 
 // int Solution::distributeCandies(int n, int limit)
 
 int main() {
-  cout << "*** 2928. Distribute Candies Among Children I ***" << endl << endl;
+    cout << "*** 2928. Distribute Candies Among Children I ***" << endl << endl;
 
-  Solution s0;
+    Solution s0;
 
-  {
-    cout << "Test 1: ";
+    {
+        cout << "Test 1: ";
 
-    int n = 5;
-    int limit = 2;
-    int ans0 = s0.distributeCandies(n, limit);
-    int exp0 = 3;
+        int n = 5;
+        int limit = 2;
+        int ans0 = s0.distributeCandies(n, limit);
+        int exp0 = 3;
 
-    if (ans0 == exp0) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << ans0 << endl;
-      cout << "  Expect: " << exp0 << endl;
+        if (ans0 == exp0) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << ans0 << endl;
+            cout << "  Expect: " << exp0 << endl;
+        }
     }
-  }
 
-  {
-    cout << "Test 2: ";
+    {
+        cout << "Test 2: ";
 
-    int n = 3;
-    int limit = 3;
-    int ans1 = s0.distributeCandies(n, limit);
-    int exp1 = 10;
+        int n = 3;
+        int limit = 3;
+        int ans1 = s0.distributeCandies(n, limit);
+        int exp1 = 10;
 
-    if (ans1 == exp1) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << ans1 << endl;
-      cout << "  Expect: " << exp1 << endl;
+        if (ans1 == exp1) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << ans1 << endl;
+            cout << "  Expect: " << exp1 << endl;
+        }
     }
-  }
 
-  return 0;
+    return 0;
 }

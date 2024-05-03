@@ -41,150 +41,150 @@ using ordered_set =
 
 template <typename T>
 struct ordered_multiset {
-  ordered_set<pair<T, int>> ost;
-  map<T, int> freq;
+    ordered_set<pair<T, int>> ost;
+    map<T, int> freq;
 
-  void insert(T val) {
-    ost.insert(make_pair(val, ++freq[val]));
-  }
+    void insert(T val) {
+        ost.insert(make_pair(val, ++freq[val]));
+    }
 
-  void erase(T val) {
-    ost.erase(make_pair(val, freq[val]--));
-  }
+    void erase(T val) {
+        ost.erase(make_pair(val, freq[val]--));
+    }
 
-  int order_of_key(T val) {
-    return ost.order_of_key(make_pair(val, -1));
-  }
+    int order_of_key(T val) {
+        return ost.order_of_key(make_pair(val, -1));
+    }
 
-  T find_by_order(T val) {
-    return ost.find_by_order(val)->first;
-  }
+    T find_by_order(T val) {
+        return ost.find_by_order(val)->first;
+    }
 
-  T bisect_left(T val) {
-    auto it = ost.lower_bound(make_pair(val, -1));
-    return it == ost.end() ? ost.size() : ost.order_of_key(*it);
-  }
+    T bisect_left(T val) {
+        auto it = ost.lower_bound(make_pair(val, -1));
+        return it == ost.end() ? ost.size() : ost.order_of_key(*it);
+    }
 
-  T bisect_right(T val) {
-    auto it = ost.lower_bound(make_pair(val, 1000000000));
-    return it == ost.end() ? ost.size() : ost.order_of_key(*it);
-  }
+    T bisect_right(T val) {
+        auto it = ost.lower_bound(make_pair(val, 1000000000));
+        return it == ost.end() ? ost.size() : ost.order_of_key(*it);
+    }
 
-  int size() {
-    return ost.size();
-  }
+    int size() {
+        return ost.size();
+    }
 
-  bool empty() {
-    return ost.empty();
-  }
+    bool empty() {
+        return ost.empty();
+    }
 };
 
 class Solution {
- public:
-  long long minimumCost(vector<int>& nums, int k, int dist) {
-    ordered_multiset<int> st;
-    long long ans = LLONG_MAX, cur = 0;
-    k--;
-    for (int i = 1; i < (int)nums.size(); i++) {
-      if (i > dist + 1) {
-        int a = nums[i - dist - 1];
-        if (st.order_of_key(a) < k) {
-          cur -= a;
-        } else {
-          cur -= st.find_by_order(k - 1);
+   public:
+    long long minimumCost(vector<int>& nums, int k, int dist) {
+        ordered_multiset<int> st;
+        long long ans = LLONG_MAX, cur = 0;
+        k--;
+        for (int i = 1; i < (int)nums.size(); i++) {
+            if (i > dist + 1) {
+                int a = nums[i - dist - 1];
+                if (st.order_of_key(a) < k) {
+                    cur -= a;
+                } else {
+                    cur -= st.find_by_order(k - 1);
+                }
+                st.erase(a);
+                st.insert(nums[i]);
+                if (st.order_of_key(nums[i]) < k) {
+                    cur += nums[i];
+                } else {
+                    cur += st.find_by_order(k - 1);
+                }
+            } else {
+                if (i <= k) {
+                    st.insert(nums[i]);
+                    cur += nums[i];
+                } else {
+                    int a = st.find_by_order(k - 1);
+                    cur -= a;
+                    st.insert(nums[i]);
+                    if (st.order_of_key(nums[i]) < k) {
+                        cur += nums[i];
+                    } else {
+                        cur += st.find_by_order(k - 1);
+                    }
+                }
+            }
+            if (i >= k) {
+                ans = min(ans, cur);
+            }
         }
-        st.erase(a);
-        st.insert(nums[i]);
-        if (st.order_of_key(nums[i]) < k) {
-          cur += nums[i];
-        } else {
-          cur += st.find_by_order(k - 1);
-        }
-      } else {
-        if (i <= k) {
-          st.insert(nums[i]);
-          cur += nums[i];
-        } else {
-          int a = st.find_by_order(k - 1);
-          cur -= a;
-          st.insert(nums[i]);
-          if (st.order_of_key(nums[i]) < k) {
-            cur += nums[i];
-          } else {
-            cur += st.find_by_order(k - 1);
-          }
-        }
-      }
-      if (i >= k) {
-        ans = min(ans, cur);
-      }
+        return ans + nums[0];
     }
-    return ans + nums[0];
-  }
 };
 
 // long long Solution::minimumCost(vector<int> nums, int k, int dist)
 
 int main() {
-  cout << "*** 3013. Divide an Array Into Subarrays With Minimum Cost II ***"
-       << endl
-       << endl;
+    cout << "*** 3013. Divide an Array Into Subarrays With Minimum Cost II ***"
+         << endl
+         << endl;
 
-  Solution s0;
+    Solution s0;
 
-  {
-    cout << "Test 1: ";
+    {
+        cout << "Test 1: ";
 
-    vector<int> nums = {1, 3, 2, 6, 4, 2};
-    int k = 3;
-    int dist = 3;
-    long long ans0 = s0.minimumCost(nums, k, dist);
-    long long exp0 = 5;
+        vector<int> nums = {1, 3, 2, 6, 4, 2};
+        int k = 3;
+        int dist = 3;
+        long long ans0 = s0.minimumCost(nums, k, dist);
+        long long exp0 = 5;
 
-    if (ans0 == exp0) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << ans0 << endl;
-      cout << "  Expect: " << exp0 << endl;
+        if (ans0 == exp0) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << ans0 << endl;
+            cout << "  Expect: " << exp0 << endl;
+        }
     }
-  }
 
-  {
-    cout << "Test 2: ";
+    {
+        cout << "Test 2: ";
 
-    vector<int> nums = {10, 1, 2, 2, 2, 1};
-    int k = 4;
-    int dist = 3;
-    long long ans1 = s0.minimumCost(nums, k, dist);
-    long long exp1 = 15;
+        vector<int> nums = {10, 1, 2, 2, 2, 1};
+        int k = 4;
+        int dist = 3;
+        long long ans1 = s0.minimumCost(nums, k, dist);
+        long long exp1 = 15;
 
-    if (ans1 == exp1) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << ans1 << endl;
-      cout << "  Expect: " << exp1 << endl;
+        if (ans1 == exp1) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << ans1 << endl;
+            cout << "  Expect: " << exp1 << endl;
+        }
     }
-  }
 
-  {
-    cout << "Test 3: ";
+    {
+        cout << "Test 3: ";
 
-    vector<int> nums = {10, 8, 18, 9};
-    int k = 3;
-    int dist = 1;
-    long long ans2 = s0.minimumCost(nums, k, dist);
-    long long exp2 = 36;
+        vector<int> nums = {10, 8, 18, 9};
+        int k = 3;
+        int dist = 1;
+        long long ans2 = s0.minimumCost(nums, k, dist);
+        long long exp2 = 36;
 
-    if (ans2 == exp2) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << ans2 << endl;
-      cout << "  Expect: " << exp2 << endl;
+        if (ans2 == exp2) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << ans2 << endl;
+            cout << "  Expect: " << exp2 << endl;
+        }
     }
-  }
 
-  return 0;
+    return 0;
 }

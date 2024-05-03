@@ -35,171 +35,171 @@ using namespace std;
 
 template <class T = int>
 struct sparseTable {  // 0-indexed
-  T op(T a, T b) {
-    return a & b;
-  }
-
-  int n;
-  vector<vector<T>> st;
-
-  sparseTable() {}
-
-  sparseTable(vector<T> v) {
-    n = v.size();
-    st = vector<vector<T>>(__lg(n) + 1, vector<T>(n));
-    st[0] = v;
-    for (int i = 1; i < st.size(); i++) {
-      for (int j = 0; j + (1 << i) <= n; j++)
-        st[i][j] = op(st[i - 1][j], st[i - 1][j + (1 << (i - 1))]);
+    T op(T a, T b) {
+        return a & b;
     }
-  }
 
-  T query(int l, int r) {  // inclusive range
-    int sz = __lg(r - l + 1);
-    return op(st[sz][l], st[sz][r - (1 << sz) + 1]);
-  }
+    int n;
+    vector<vector<T>> st;
+
+    sparseTable() {}
+
+    sparseTable(vector<T> v) {
+        n = v.size();
+        st = vector<vector<T>>(__lg(n) + 1, vector<T>(n));
+        st[0] = v;
+        for (int i = 1; i < st.size(); i++) {
+            for (int j = 0; j + (1 << i) <= n; j++)
+                st[i][j] = op(st[i - 1][j], st[i - 1][j + (1 << (i - 1))]);
+        }
+    }
+
+    T query(int l, int r) {  // inclusive range
+        int sz = __lg(r - l + 1);
+        return op(st[sz][l], st[sz][r - (1 << sz) + 1]);
+    }
 };
 
 template <class T = int>
 struct sparseTable2 {  // 0-indexed
-  T op(T a, T b) {
-    return min(a, b);
-  }
-
-  int n;
-  vector<vector<T>> st;
-
-  sparseTable2() {}
-
-  sparseTable2(vector<T> v) {
-    n = v.size();
-    st = vector<vector<T>>(__lg(n) + 1, vector<T>(n));
-    st[0] = v;
-    for (int i = 1; i < st.size(); i++) {
-      for (int j = 0; j + (1 << i) <= n; j++)
-        st[i][j] = op(st[i - 1][j], st[i - 1][j + (1 << (i - 1))]);
+    T op(T a, T b) {
+        return min(a, b);
     }
-  }
 
-  T query(int l, int r) {  // inclusive range
-    int sz = __lg(r - l + 1);
-    return op(st[sz][l], st[sz][r - (1 << sz) + 1]);
-  }
+    int n;
+    vector<vector<T>> st;
+
+    sparseTable2() {}
+
+    sparseTable2(vector<T> v) {
+        n = v.size();
+        st = vector<vector<T>>(__lg(n) + 1, vector<T>(n));
+        st[0] = v;
+        for (int i = 1; i < st.size(); i++) {
+            for (int j = 0; j + (1 << i) <= n; j++)
+                st[i][j] = op(st[i - 1][j], st[i - 1][j + (1 << (i - 1))]);
+        }
+    }
+
+    T query(int l, int r) {  // inclusive range
+        int sz = __lg(r - l + 1);
+        return op(st[sz][l], st[sz][r - (1 << sz) + 1]);
+    }
 };
 
 class Solution {
- public:
-  int minimumValueSum(vector<int>& nums, vector<int>& andValues) {
-    int n = (int)nums.size(), m = (int)andValues.size();
-    nums.insert(nums.begin(), INT_MAX);
-    andValues.insert(andValues.begin(), INT_MAX);
-    sparseTable st(nums);
-    vector<vector<int>> dp(m + 1, vector<int>(n + 1, INT_MAX));
-    vector<sparseTable2<int>> st2(m + 1);
-    dp[0][0] = 0;
-    vector<int> t;
-    for (int i = 0; i <= n; i++) {
-      t.push_back(dp[0][i]);
+   public:
+    int minimumValueSum(vector<int>& nums, vector<int>& andValues) {
+        int n = (int)nums.size(), m = (int)andValues.size();
+        nums.insert(nums.begin(), INT_MAX);
+        andValues.insert(andValues.begin(), INT_MAX);
+        sparseTable st(nums);
+        vector<vector<int>> dp(m + 1, vector<int>(n + 1, INT_MAX));
+        vector<sparseTable2<int>> st2(m + 1);
+        dp[0][0] = 0;
+        vector<int> t;
+        for (int i = 0; i <= n; i++) {
+            t.push_back(dp[0][i]);
+        }
+        st2[0] = sparseTable2(t);
+        for (int j = 1; j <= m; j++) {
+            t.clear();
+            for (int i = 0; i <= n; i++) {
+                int low = 1, high = i;
+                int index1 = -1, index2 = i + 1;
+                while (low <= high) {
+                    int mid = (low + high) / 2;
+                    int q = st.query(mid, i);
+                    if (q >= andValues[j]) {
+                        index1 = mid;
+                        high = mid - 1;
+                    } else {
+                        low = mid + 1;
+                    }
+                }
+                low = 1, high = i;
+                while (low <= high) {
+                    int mid = (low + high) / 2;
+                    int q = st.query(mid, i);
+                    if (q > andValues[j]) {
+                        index2 = mid;
+                        high = mid - 1;
+                    } else {
+                        low = mid + 1;
+                    }
+                }
+                if (index1 >= 1 && index1 - 1 <= index2 - 2) {
+                    int mn = st2[j - 1].query(index1 - 1, index2 - 2);
+                    if (mn != INT_MAX) {
+                        dp[j][i] = mn + nums[i];
+                    }
+                }
+                t.push_back(dp[j][i]);
+            }
+            st2[j] = sparseTable2(t);
+        }
+        return dp[m][n] == INT_MAX ? -1 : dp[m][n];
     }
-    st2[0] = sparseTable2(t);
-    for (int j = 1; j <= m; j++) {
-      t.clear();
-      for (int i = 0; i <= n; i++) {
-        int low = 1, high = i;
-        int index1 = -1, index2 = i + 1;
-        while (low <= high) {
-          int mid = (low + high) / 2;
-          int q = st.query(mid, i);
-          if (q >= andValues[j]) {
-            index1 = mid;
-            high = mid - 1;
-          } else {
-            low = mid + 1;
-          }
-        }
-        low = 1, high = i;
-        while (low <= high) {
-          int mid = (low + high) / 2;
-          int q = st.query(mid, i);
-          if (q > andValues[j]) {
-            index2 = mid;
-            high = mid - 1;
-          } else {
-            low = mid + 1;
-          }
-        }
-        if (index1 >= 1 && index1 - 1 <= index2 - 2) {
-          int mn = st2[j - 1].query(index1 - 1, index2 - 2);
-          if (mn != INT_MAX) {
-            dp[j][i] = mn + nums[i];
-          }
-        }
-        t.push_back(dp[j][i]);
-      }
-      st2[j] = sparseTable2(t);
-    }
-    return dp[m][n] == INT_MAX ? -1 : dp[m][n];
-  }
 };
 
 // int Solution::minimumValueSum(vector<int> nums, vector<int> andValues)
 
 int main() {
-  cout << "*** 3117. Minimum Sum of Values by Dividing Array ***" << endl
-       << endl;
+    cout << "*** 3117. Minimum Sum of Values by Dividing Array ***" << endl
+         << endl;
 
-  Solution s0;
+    Solution s0;
 
-  {
-    cout << "Test 1: ";
+    {
+        cout << "Test 1: ";
 
-    vector<int> nums = {1, 4, 3, 3, 2};
-    vector<int> andValues = {0, 3, 3, 2};
-    int ans0 = s0.minimumValueSum(nums, andValues);
-    int exp0 = 12;
+        vector<int> nums = {1, 4, 3, 3, 2};
+        vector<int> andValues = {0, 3, 3, 2};
+        int ans0 = s0.minimumValueSum(nums, andValues);
+        int exp0 = 12;
 
-    if (ans0 == exp0) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << ans0 << endl;
-      cout << "  Expect: " << exp0 << endl;
+        if (ans0 == exp0) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << ans0 << endl;
+            cout << "  Expect: " << exp0 << endl;
+        }
     }
-  }
 
-  {
-    cout << "Test 2: ";
+    {
+        cout << "Test 2: ";
 
-    vector<int> nums = {2, 3, 5, 7, 7, 7, 5};
-    vector<int> andValues = {0, 7, 5};
-    int ans1 = s0.minimumValueSum(nums, andValues);
-    int exp1 = 17;
+        vector<int> nums = {2, 3, 5, 7, 7, 7, 5};
+        vector<int> andValues = {0, 7, 5};
+        int ans1 = s0.minimumValueSum(nums, andValues);
+        int exp1 = 17;
 
-    if (ans1 == exp1) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << ans1 << endl;
-      cout << "  Expect: " << exp1 << endl;
+        if (ans1 == exp1) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << ans1 << endl;
+            cout << "  Expect: " << exp1 << endl;
+        }
     }
-  }
 
-  {
-    cout << "Test 3: ";
+    {
+        cout << "Test 3: ";
 
-    vector<int> nums = {1, 2, 3, 4};
-    vector<int> andValues = {2};
-    int ans2 = s0.minimumValueSum(nums, andValues);
-    int exp2 = -1;
+        vector<int> nums = {1, 2, 3, 4};
+        vector<int> andValues = {2};
+        int ans2 = s0.minimumValueSum(nums, andValues);
+        int exp2 = -1;
 
-    if (ans2 == exp2) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << ans2 << endl;
-      cout << "  Expect: " << exp2 << endl;
+        if (ans2 == exp2) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << ans2 << endl;
+            cout << "  Expect: " << exp2 << endl;
+        }
     }
-  }
 
-  return 0;
+    return 0;
 }

@@ -34,96 +34,97 @@
 using namespace std;
 
 class Solution {
- public:
-  int sumOfPowers(vector<int>& nums, int k) {
-    const long long mod = (long long)1e9 + 7;
-    int n = (int)nums.size();
-    sort(nums.begin(), nums.end());
-    vector<vector<map<int, long long>>> dp(n,
-                                           vector<map<int, long long>>(k + 1));
-    for (int i = 0; i < n; i++) {
-      for (int j = i + 1; j < n; j++) {
-        dp[j][2][nums[j] - nums[i]]++;
-      }
-    }
-    for (int i = 0; i < n; i++) {
-      for (int j = 0; j < i; j++) {
-        for (int l = 2; l < k; l++) {
-          for (auto& e : dp[j][l]) {
-            dp[i][l + 1][min(e.first, nums[i] - nums[j])] += e.second;
-            dp[i][l + 1][min(e.first, nums[i] - nums[j])] %= mod;
-          }
+   public:
+    int sumOfPowers(vector<int>& nums, int k) {
+        const long long mod = (long long)1e9 + 7;
+        int n = (int)nums.size();
+        sort(nums.begin(), nums.end());
+        vector<vector<map<int, long long>>> dp(
+            n, vector<map<int, long long>>(k + 1));
+        for (int i = 0; i < n; i++) {
+            for (int j = i + 1; j < n; j++) {
+                dp[j][2][nums[j] - nums[i]]++;
+            }
         }
-      }
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < i; j++) {
+                for (int l = 2; l < k; l++) {
+                    for (auto& e : dp[j][l]) {
+                        dp[i][l + 1][min(e.first, nums[i] - nums[j])] +=
+                            e.second;
+                        dp[i][l + 1][min(e.first, nums[i] - nums[j])] %= mod;
+                    }
+                }
+            }
+        }
+        long long ans = 0;
+        for (int i = 0; i < n; i++) {
+            for (auto& e : dp[i][k]) {
+                ans += 1LL * e.first * e.second;
+                ans %= mod;
+            }
+        }
+        return ans;
     }
-    long long ans = 0;
-    for (int i = 0; i < n; i++) {
-      for (auto& e : dp[i][k]) {
-        ans += 1LL * e.first * e.second;
-        ans %= mod;
-      }
-    }
-    return ans;
-  }
 };
 
 // int Solution::sumOfPowers(vector<int> nums, int k)
 
 int main() {
-  cout << "*** 3098. Find the Sum of Subsequence Powers ***" << endl << endl;
+    cout << "*** 3098. Find the Sum of Subsequence Powers ***" << endl << endl;
 
-  Solution s0;
+    Solution s0;
 
-  {
-    cout << "Test 1: ";
+    {
+        cout << "Test 1: ";
 
-    vector<int> nums = {1, 2, 3, 4};
-    int k = 3;
-    int ans0 = s0.sumOfPowers(nums, k);
-    int exp0 = 4;
+        vector<int> nums = {1, 2, 3, 4};
+        int k = 3;
+        int ans0 = s0.sumOfPowers(nums, k);
+        int exp0 = 4;
 
-    if (ans0 == exp0) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << ans0 << endl;
-      cout << "  Expect: " << exp0 << endl;
+        if (ans0 == exp0) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << ans0 << endl;
+            cout << "  Expect: " << exp0 << endl;
+        }
     }
-  }
 
-  {
-    cout << "Test 2: ";
+    {
+        cout << "Test 2: ";
 
-    vector<int> nums = {2, 2};
-    int k = 2;
-    int ans1 = s0.sumOfPowers(nums, k);
-    int exp1 = 0;
+        vector<int> nums = {2, 2};
+        int k = 2;
+        int ans1 = s0.sumOfPowers(nums, k);
+        int exp1 = 0;
 
-    if (ans1 == exp1) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << ans1 << endl;
-      cout << "  Expect: " << exp1 << endl;
+        if (ans1 == exp1) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << ans1 << endl;
+            cout << "  Expect: " << exp1 << endl;
+        }
     }
-  }
 
-  {
-    cout << "Test 3: ";
+    {
+        cout << "Test 3: ";
 
-    vector<int> nums = {4, 3, -1};
-    int k = 2;
-    int ans2 = s0.sumOfPowers(nums, k);
-    int exp2 = 10;
+        vector<int> nums = {4, 3, -1};
+        int k = 2;
+        int ans2 = s0.sumOfPowers(nums, k);
+        int exp2 = 10;
 
-    if (ans2 == exp2) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << ans2 << endl;
-      cout << "  Expect: " << exp2 << endl;
+        if (ans2 == exp2) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << ans2 << endl;
+            cout << "  Expect: " << exp2 << endl;
+        }
     }
-  }
 
-  return 0;
+    return 0;
 }

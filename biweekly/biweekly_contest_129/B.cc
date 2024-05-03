@@ -34,91 +34,91 @@
 using namespace std;
 
 class Solution {
- public:
-  long long numberOfRightTriangles(vector<vector<int>>& grid) {
-    int n = (int)grid.size(), m = (int)grid[0].size();
-    vector<int> v1(n);
-    vector<int> v2(m);
-    for (int i = 0; i < n; i++) {
-      for (auto& e : grid[i]) {
-        if (e == 1) {
-          v1[i]++;
+   public:
+    long long numberOfRightTriangles(vector<vector<int>>& grid) {
+        int n = (int)grid.size(), m = (int)grid[0].size();
+        vector<int> v1(n);
+        vector<int> v2(m);
+        for (int i = 0; i < n; i++) {
+            for (auto& e : grid[i]) {
+                if (e == 1) {
+                    v1[i]++;
+                }
+            }
         }
-      }
-    }
-    for (int i = 0; i < m; i++) {
-      for (int j = 0; j < n; j++) {
-        if (grid[j][i] == 1) {
-          v2[i]++;
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (grid[j][i] == 1) {
+                    v2[i]++;
+                }
+            }
         }
-      }
-    }
-    long long ans = 0;
-    for (int i = 0; i < n; i++) {
-      for (int j = 0; j < m; j++) {
-        if (grid[i][j]) {
-          ans += 1LL * (v1[i] - 1) * (v2[j] - 1);
+        long long ans = 0;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if (grid[i][j]) {
+                    ans += 1LL * (v1[i] - 1) * (v2[j] - 1);
+                }
+            }
         }
-      }
+        return ans;
     }
-    return ans;
-  }
 };
 
 // long long Solution::numberOfRightTriangles(vector<vector<int>> grid)
 
 int main() {
-  cout << "*** 3128. Right Triangles ***" << endl << endl;
+    cout << "*** 3128. Right Triangles ***" << endl << endl;
 
-  Solution s0;
+    Solution s0;
 
-  {
-    cout << "Test 1: ";
+    {
+        cout << "Test 1: ";
 
-    vector<vector<int>> grid = {{0, 1, 0}, {0, 1, 1}, {0, 1, 0}};
-    long long ans0 = s0.numberOfRightTriangles(grid);
-    long long exp0 = 2;
+        vector<vector<int>> grid = {{0, 1, 0}, {0, 1, 1}, {0, 1, 0}};
+        long long ans0 = s0.numberOfRightTriangles(grid);
+        long long exp0 = 2;
 
-    if (ans0 == exp0) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << ans0 << endl;
-      cout << "  Expect: " << exp0 << endl;
+        if (ans0 == exp0) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << ans0 << endl;
+            cout << "  Expect: " << exp0 << endl;
+        }
     }
-  }
 
-  {
-    cout << "Test 2: ";
+    {
+        cout << "Test 2: ";
 
-    vector<vector<int>> grid = {{1, 0, 0, 0}, {0, 1, 0, 1}, {1, 0, 0, 0}};
-    long long ans1 = s0.numberOfRightTriangles(grid);
-    long long exp1 = 0;
+        vector<vector<int>> grid = {{1, 0, 0, 0}, {0, 1, 0, 1}, {1, 0, 0, 0}};
+        long long ans1 = s0.numberOfRightTriangles(grid);
+        long long exp1 = 0;
 
-    if (ans1 == exp1) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << ans1 << endl;
-      cout << "  Expect: " << exp1 << endl;
+        if (ans1 == exp1) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << ans1 << endl;
+            cout << "  Expect: " << exp1 << endl;
+        }
     }
-  }
 
-  {
-    cout << "Test 3: ";
+    {
+        cout << "Test 3: ";
 
-    vector<vector<int>> grid = {{1, 0, 1}, {1, 0, 0}, {1, 0, 0}};
-    long long ans2 = s0.numberOfRightTriangles(grid);
-    long long exp2 = 2;
+        vector<vector<int>> grid = {{1, 0, 1}, {1, 0, 0}, {1, 0, 0}};
+        long long ans2 = s0.numberOfRightTriangles(grid);
+        long long exp2 = 2;
 
-    if (ans2 == exp2) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << ans2 << endl;
-      cout << "  Expect: " << exp2 << endl;
+        if (ans2 == exp2) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << ans2 << endl;
+            cout << "  Expect: " << exp2 << endl;
+        }
     }
-  }
 
-  return 0;
+    return 0;
 }

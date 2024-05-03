@@ -34,111 +34,111 @@
 using namespace std;
 
 struct Hash {
-  const long long mod = (long long)1e9 + 7;
-  const long long p = 31;
-  vector<long long> pow = {1, 1};
-  vector<long long> hashed = {0};
+    const long long mod = (long long)1e9 + 7;
+    const long long p = 31;
+    vector<long long> pow = {1, 1};
+    vector<long long> hashed = {0};
 
-  Hash(string s) {
-    long long a = p, b = mod - 2, pm = 1, n = (int)s.size();
-    while (b) {
-      if (b & 1)
-        pm *= a;
-      pm %= mod;
-      a *= a;
-      a %= mod;
-      b >>= 1;
+    Hash(string s) {
+        long long a = p, b = mod - 2, pm = 1, n = (int)s.size();
+        while (b) {
+            if (b & 1)
+                pm *= a;
+            pm %= mod;
+            a *= a;
+            a %= mod;
+            b >>= 1;
+        }
+        for (int i = 2; i <= n; i++) {
+            pow.push_back((pow.back() * pm) % mod);
+        }
+        long long power = 1;
+        for (auto& c : s) {
+            hashed.push_back((hashed.back() + (c - 'a' + 1) * power) % mod);
+            power = (power * p) % mod;
+        }
     }
-    for (int i = 2; i <= n; i++) {
-      pow.push_back((pow.back() * pm) % mod);
-    }
-    long long power = 1;
-    for (auto& c : s) {
-      hashed.push_back((hashed.back() + (c - 'a' + 1) * power) % mod);
-      power = (power * p) % mod;
-    }
-  }
 
-  long long get(int l, int r) {
-    return ((hashed[r] - hashed[l - 1] + mod) % mod) * pow[l] % mod;
-  }
+    long long get(int l, int r) {
+        return ((hashed[r] - hashed[l - 1] + mod) % mod) * pow[l] % mod;
+    }
 };
 
 class Solution {
- public:
-  long long countPrefixSuffixPairs(vector<string>& words) {
-    unordered_map<long long, long long> mp;
-    long long ans = 0;
-    for (auto& e : words) {
-      int sz = (int)e.size();
-      Hash h(e);
-      for (int i = 1; i <= sz; i++) {
-        long long h1 = h.get(1, i);
-        long long h2 = h.get(sz - i + 1, sz);
-        if (h1 == h2) {
-          ans += mp[h1];
+   public:
+    long long countPrefixSuffixPairs(vector<string>& words) {
+        unordered_map<long long, long long> mp;
+        long long ans = 0;
+        for (auto& e : words) {
+            int sz = (int)e.size();
+            Hash h(e);
+            for (int i = 1; i <= sz; i++) {
+                long long h1 = h.get(1, i);
+                long long h2 = h.get(sz - i + 1, sz);
+                if (h1 == h2) {
+                    ans += mp[h1];
+                }
+            }
+            mp[h.hashed.back()]++;
         }
-      }
-      mp[h.hashed.back()]++;
+        return ans;
     }
-    return ans;
-  }
 };
 
 // long long Solution::countPrefixSuffixPairs(vector<string> words)
 
 int main() {
-  cout << "*** 3045. Count Prefix and Suffix Pairs II ***" << endl << endl;
+    cout << "*** 3045. Count Prefix and Suffix Pairs II ***" << endl << endl;
 
-  Solution s0;
+    Solution s0;
 
-  {
-    cout << "Test 1: ";
+    {
+        cout << "Test 1: ";
 
-    vector<string> words = {"a", "aba", "ababa", "aa"};
-    long long ans0 = s0.countPrefixSuffixPairs(words);
-    long long exp0 = 4;
+        vector<string> words = {"a", "aba", "ababa", "aa"};
+        long long ans0 = s0.countPrefixSuffixPairs(words);
+        long long exp0 = 4;
 
-    if (ans0 == exp0) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << ans0 << endl;
-      cout << "  Expect: " << exp0 << endl;
+        if (ans0 == exp0) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << ans0 << endl;
+            cout << "  Expect: " << exp0 << endl;
+        }
     }
-  }
 
-  {
-    cout << "Test 2: ";
+    {
+        cout << "Test 2: ";
 
-    vector<string> words = {"pa", "papa", "ma", "mama"};
-    long long ans1 = s0.countPrefixSuffixPairs(words);
-    long long exp1 = 2;
+        vector<string> words = {"pa", "papa", "ma", "mama"};
+        long long ans1 = s0.countPrefixSuffixPairs(words);
+        long long exp1 = 2;
 
-    if (ans1 == exp1) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << ans1 << endl;
-      cout << "  Expect: " << exp1 << endl;
+        if (ans1 == exp1) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << ans1 << endl;
+            cout << "  Expect: " << exp1 << endl;
+        }
     }
-  }
 
-  {
-    cout << "Test 3: ";
+    {
+        cout << "Test 3: ";
 
-    vector<string> words = {"abab", "ab"};
-    long long ans2 = s0.countPrefixSuffixPairs(words);
-    long long exp2 = 0;
+        vector<string> words = {"abab", "ab"};
+        long long ans2 = s0.countPrefixSuffixPairs(words);
+        long long exp2 = 0;
 
-    if (ans2 == exp2) {
-      cout << "Yes" << endl;
-    } else {
-      cout << "No" << endl;
-      cout << "  Answer: " << ans2 << endl;
-      cout << "  Expect: " << exp2 << endl;
+        if (ans2 == exp2) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+            cout << "  Answer: " << ans2 << endl;
+            cout << "  Expect: " << exp2 << endl;
+        }
     }
-  }
 
-  return 0;
+    return 0;
 }
