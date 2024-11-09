@@ -1,3 +1,2 @@
 .vscode
-commit.sh
-create_contest.sh
+*.sh
